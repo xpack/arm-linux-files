@@ -5,7 +5,7 @@ are attached to release [qemu](https://github.com/xpack/arm-linux-files/releases
 
 ## Supported architectures
 
-The supported architectures are:
+The supported Arm architectures are:
 
 - `armhf` for 32-bit devices
 - `arm64` for 64-bit devices
