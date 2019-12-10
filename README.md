@@ -51,7 +51,8 @@ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 
 ```
 
-During the install, the default selections were used:
+During the install, the default selections were used. You might want
+to add your own user and configure local settings.
 
 - Language: English
 - Country: United States
