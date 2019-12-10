@@ -22,9 +22,9 @@ split in several parts, and must be reassembled.
 ### The arm64 (64-bit) image
 
 ```console
-curl -L --fail -o hda-ubu16-arm64.qcow2-aa  https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-aa
-curl -L --fail -o hda-ubu16-arm64.qcow2-ab  https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ab
-curl -L --fail -o hda-ubu16-arm64.qcow2-ac  https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ac
+curl -L --fail -o hda-ubu16-arm64.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-aa
+curl -L --fail -o hda-ubu16-arm64.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ab
+curl -L --fail -o hda-ubu16-arm64.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ac
 cat hda-ubu16-arm64.qcow2-aa hda-ubu16-arm64.qcow2-ab hda-ubu16-arm64.qcow2-ac >hda-ubu16-arm64.qcow2
 ```
 
@@ -40,7 +40,7 @@ curl -L --fail -o installer-ubu16-arm64-initrd.gz http://ports.ubuntu.com/ubuntu
 
 qemu-img create -f qcow2 hda-ubu16-arm64.qcow2 32G
 
-caffeinate qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
+qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 -kernel installer-ubu16-arm64-linux \
 -initrd installer-ubu16-arm64-initrd.gz \
 -drive if=none,file=hda-ubu16-arm64.qcow2,format=qcow2,id=hd \
