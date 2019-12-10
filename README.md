@@ -1,7 +1,7 @@
 # arm-linux-files
 
 Various files needed to run Linux on Arm boards. The files are attached
-to release [v1.0](https://github.com/xpack/arm-linux-files/releases/tag/v1.0)
+to release [v1.0](https://github.com/xpack/arm-linux-files/releases/tag/qemu)
 
 ## Supported architectures
 
@@ -26,9 +26,9 @@ Version 4.1.1 of QEMU was used, installed on macOS via Homebrew.
 ### The arm64 (64-bit) image
 
 ```console
-curl -L --fail -o hda-ubu16-arm64.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-aa
-curl -L --fail -o hda-ubu16-arm64.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ab
-curl -L --fail -o hda-ubu16-arm64.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/v1.0/hda-ubu16-arm64.qcow2-ac
+curl -L --fail -o hda-ubu16-arm64.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-aa
+curl -L --fail -o hda-ubu16-arm64.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-ab
+curl -L --fail -o hda-ubu16-arm64.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-ac
 cat hda-ubu16-arm64.qcow2-aa hda-ubu16-arm64.qcow2-ab hda-ubu16-arm64.qcow2-ac >hda-ubu16-arm64.qcow2
 ```
 
