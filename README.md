@@ -60,7 +60,7 @@ to add your own user and configure local settings.
 
 - Language: English
 - Country: United States
-- Hostname: `ubu16-arm64`
+- Hostname: `ubu16-arm64` <---
 - Full name: Adminus Maximus
 - Username: `primus/primus` <---
 	- Use weak password: Yes
@@ -76,13 +76,13 @@ to add your own user and configure local settings.
 - No automatic updates
 - Software selection
 	- standard system utilities
-	- OpenSSH server
+	- OpenSSH server <---
 - Installation step failed during Select and install software
 - Select and install software
 - No automatic updates
 - Software selection
 	- standard system utilities
-	- OpenSSH server
+	- OpenSSH server <---
 - Installation step failed  during Make the system bootable
 - Continue without boot loader
 
