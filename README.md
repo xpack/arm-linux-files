@@ -58,7 +58,9 @@ to add your own user and configure local settings.
 - Country: United States
 - Hostname: `ubu16-arm64`
 - Full name: Adminus Maximus
-- Username: `primus/primus`, Use weak password: Yes, Encrypt home: No
+- Username: `primus/primus` <---
+	- Use weak password: Yes
+	- Encrypt home: No
 - Time zone: Eastern
 - Partition disk
 	- Guided - use entire disk
