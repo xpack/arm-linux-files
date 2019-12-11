@@ -26,10 +26,10 @@ Version 4.1.1 of QEMU was used, installed on macOS via Homebrew.
 ### The arm64 (64-bit) image
 
 ```console
-curl -L --fail -o hda-ubu16-arm64.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-aa
-curl -L --fail -o hda-ubu16-arm64.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-ab
-curl -L --fail -o hda-ubu16-arm64.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64.qcow2-ac
-cat hda-ubu16-arm64.qcow2-aa hda-ubu16-arm64.qcow2-ab hda-ubu16-arm64.qcow2-ac >hda-ubu16-arm64.qcow2
+curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
+curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/hda-ubu16-arm64-hda.qcow2-ab
+curl -L --fail -o ubu16-arm64-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ac
+cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
 ```
 
 For those who want to create this image themselves, below are the
@@ -39,15 +39,15 @@ steps used.
 mkdir -p qemu-arm
 cd qemu-arm
 
-curl -L --fail -o installer-ubu16-arm64-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
-curl -L --fail -o installer-ubu16-arm64-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
+curl -L --fail -o ubu16-arm64-installer-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
+curl -L --fail -o ubu16-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
 
-qemu-img create -f qcow2 hda-ubu16-arm64.qcow2 32G
+qemu-img create -f qcow2 ubu16-arm64-hda.qcow2 32G
 
 qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
--kernel installer-ubu16-arm64-linux \
--initrd installer-ubu16-arm64-initrd.gz \
--drive if=none,file=hda-ubu16-arm64.qcow2,format=qcow2,id=hd \
+-kernel ubu16-arm64-installer-linux \
+-initrd ubu16-arm64-installer-initrd.gz \
+-drive if=none,file=ubu16-arm64-hda.qcow2,format=qcow2,id=hd \
 -device virtio-blk-pci,drive=hd \
 -netdev user,id=armnet \
 -device virtio-net-pci,netdev=armnet \
@@ -126,7 +126,7 @@ files are available for copying.
 cd qemu-arm
 
 sudo modprobe nbd max_part=8
-sudo qemu-nbd --connect=/dev/nbd0  hda-ubu16-arm64.qcow2
+sudo qemu-nbd --connect=/dev/nbd0 ubu16-arm64-hda.qcow2
 sudo fdisk /dev/nbd0 -l
 mkdir -p $HOME/tmp/mntpoint1
 sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint1
