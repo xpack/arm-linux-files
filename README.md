@@ -130,14 +130,14 @@ supported on Arm in this version, thus, when running the image under
 QEMU, the kernel and initrd files must be provided separatelly, as 
 command line options.
 
-#### Download the kernel and initrd
+#### Download ready to use kernel and initrd
 
-For 64-bit Arm Ubuntu 16.04.6, the files are:
+For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
 - ubu16-arm64-initrd.img-4.4.0-170-generic
 - ubu16-arm64-vmlinuz-4.4.0-170-generic
 
-To download them, use:
+The commands to download them are:
 
 ```console
 cd $HOME/Work/qemu-arm
