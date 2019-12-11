@@ -56,7 +56,7 @@ and must be reassembled after download.
 
 For 64-bit Arm Ubuntu 16.04.6, the image is:
 
-- `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and is assembled from 3 parts.
+- `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and must be assembled from 3 parts.
 
 The commands to download and reassemble are:
 
