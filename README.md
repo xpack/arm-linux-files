@@ -55,9 +55,7 @@ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 ...
 ```
 
-During the install, the default selections were used. You might want
-to add your own user (_primus_ is latin for _first_) and configure 
-local settings.
+During the install, the default selections were used. 
 
 - Language: English
 - Country: United States
@@ -137,6 +135,48 @@ sudo cp $HOME/tmp/mntpoint1/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-
 sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
 sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
 sudo chmod a-w ubu16-arm64-*
+```
+
+With these new files available, it is possible to start the new virtual machine.
+
+```console
+cd qemu-arm
+
+qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
+-kernel ubu16-arm64-vmlinuz-4.4.0-170-generic \
+-initrd ubu16-arm64-initrd.img-4.4.0-170-generic \
+-append 'root=/dev/vda2' \
+-drive if=none,file=ubu16-arm64-hda.qcow2,format=qcow2,id=hd \
+-device virtio-blk-pci,drive=hd \
+-netdev user,id=armnet,hostfwd=tcp::30064-:22 \
+-device virtio-net-pci,netdev=armnet \
+-nographic
+...
+```
+
+You might want to add your own user and configure local settings.
+
+Login as user primus (_primus_ is latin for _first_) and add your user.
+
+```console
+sudo adduser ilg
+sudo usermod -aG sudo ilg
+
+sudo dpkg-reconfigure tzdata
+cat /etc/timezone
+
+sudo apt install -y screen
+```
+
+Now it is possible to login as the new user.
+
+```console
+ssh ilg@ilg-xbb-linux.local -p 30064
+
+# add to .profile
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 ```
 
 ### The armhf (32-bit) image
