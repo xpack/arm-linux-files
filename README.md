@@ -54,6 +54,8 @@ and must be reassembled after download.
 
 #### Download a ready to use image
 
+The image is about 2.4GB large and is assembled from 3 parts.
+
 ```console
 curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
 curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
