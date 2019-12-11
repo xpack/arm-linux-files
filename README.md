@@ -207,7 +207,8 @@ Ubuntu 16.04.6 LTS ubu16-arm64 ttyAMA0
 ubu16-arm64 login: 
 ```
 
-Login as user `primus` (_primus_ is latin for _first_) to add your user
+Login as user `primus` (_primus_ is latin for _first_). You can use
+this initial user, or you, if you prefer, you can add your user
 and configure local settings.
 
 ```console
