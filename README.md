@@ -56,7 +56,8 @@ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 ```
 
 During the install, the default selections were used. You might want
-to add your own user and configure local settings.
+to add your own user (_primus_ is latin for _first_) and configure 
+local settings.
 
 - Language: English
 - Country: United States
@@ -83,7 +84,7 @@ to add your own user and configure local settings.
 - Software selection
 	- standard system utilities
 	- OpenSSH server <---
-- Installation step failed  during Make the system bootable
+- Installation step failed during Make the system bootable
 - Continue without boot loader
 
 ```
@@ -98,10 +99,10 @@ You will need to boot manually with the /vmlinuz kernel on partition
 - Installation complete
 
 As it can be seen, the procedure issued several errors, but retrying
-managed to recover, execpt the step to install the bootloader, not
+managed to recover, except the step to install the bootloader, not
 supported on Arm in this version, thus, when running the image under
-QEMU, these files should be provided separatelly, as command line
-options.
+QEMU, the kernel and initrd files must be provided separatelly, as 
+command line options.
 
 The files can be extracted from the qcow2 image, by mounting it with 
 `qmu-nbd`, and the first partition as a regular filesystem, then the 
