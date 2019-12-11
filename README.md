@@ -17,7 +17,7 @@ major release that supports 64-bit devices.
 
 ### QEMU 4.1.1
 
-On macOS, this can be installed via Homebrew.
+On macOS, qemu can be installed via Homebrew.
 
 On Linux, the versions available on more conservative distributions,
 like Ubuntu 18.04, are too old to be usable, and in this case it is
@@ -28,6 +28,9 @@ In this case the separate folder need to be added to the PATH.
 ```console
 PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
 ```
+
+On some distributions there might be a separate `qemu-utils` which
+needs to be installed.
 
 ## Ubuntu 16.04.6 virtual disks
 
