@@ -4,7 +4,7 @@ This file documents how the various files were created.
 
 ## The arm64 (64-bit) image
 
-### How to prepare the image yourself
+### How to prepare the virtual image file 
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
@@ -81,7 +81,7 @@ QEMU, the kernel and initrd files must be provided separatelly, as
 command line options.
 
 
-### How to extract the kernel and initrd yourself
+### How to extract the kernel and initrd 
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
