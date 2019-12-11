@@ -104,6 +104,9 @@ machine. If you work with a remote machine, preferably start qemu within
 a `screen` session. To allow for remote access to the virtual machine, 
 add a forwarder to the ssh port (for example via port 30064).
 
+The `-m 16G` is generous, because the host machine has 32G; for
+a configuration with 4 core probably 8GB are enough.
+
 ```console
 screen -s qemu
 
