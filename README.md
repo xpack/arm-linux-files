@@ -236,6 +236,4 @@ For 32-bit Arm Ubuntu 16.04.6, use:
 - ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
 - ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae
 
-
-
-
+TODO: update with details.
