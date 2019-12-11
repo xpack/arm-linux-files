@@ -104,15 +104,40 @@ supported on Arm in this version, thus, when running the image under
 QEMU, the kernel and initrd files must be provided separatelly, as 
 command line options.
 
-The files can be extracted from the qcow2 image, by mounting it with 
-`qmu-nbd`, and the first partition as a regular filesystem, then the 
-files are available for copying.
-
-
 For 64-bit Arm Ubuntu 16.04.6, use:
 
 - ubu16-arm64-initrd.img-4.4.0-170-generic
 - ubu16-arm64-vmlinuz-4.4.0-170-generic
+
+To download them, use:
+
+```console
+cd qemu-arm
+
+curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
+curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
+```
+
+The files can be extracted from the qcow2 image, by mounting it with 
+`qmu-nbd`, and the first partition as a regular filesystem, then the 
+files are available for copying.
+
+```console
+cd qemu-arm
+
+sudo modprobe nbd max_part=8
+sudo qemu-nbd --connect=/dev/nbd0  hda-ubu16-arm64.qcow2
+sudo fdisk /dev/nbd0 -l
+mkdir -p $HOME/tmp/mntpoint1
+sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint1
+ls -l $HOME/tmp/mntpoint1
+cp $HOME/tmp/mntpoint1/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
+cp $HOME/tmp/mntpoint1/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
+sudo cp $HOME/tmp/mntpoint1/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
+sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
+sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
+sudo chmod a-w ubu16-arm64-*
+```
 
 ### The armhf (32-bit) image
 
