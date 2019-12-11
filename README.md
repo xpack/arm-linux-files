@@ -1,7 +1,9 @@
 # arm-linux-files
 
-This project includes various files needed to run Linux on Arm boards. The 
-files are published as releases:
+This project includes various files needed to run Linux on Arm boards,
+especially environments to build Arm binaries.
+
+The files are grouped by named releases:
 
 - [qemu](https://github.com/xpack/arm-linux-files/releases/tag/qemu) - 
 files used to run Arm Linux on QEMU
@@ -13,8 +15,14 @@ The supported Arm architectures are:
 - `armhf` for 32-bit devices
 - `arm64` for 64-bit devices
 
-As build environments, the Ubuntu 16.04.6 was selected, as it is the first
-major release that supports 64-bit devices.
+As development environments for building Arm binaries,
+the **Ubuntu 16.04.6 LTS (xenial)** was selected, as it was the
+first major release that supported 64-bit Arm devices.
+
+At `uname -a` they identify as:
+
+- `Linux ubu16-arm64 4.4.0-170-generic #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux`
+- `Linux ubu16-armhf 4.4.0-170-generic-lpae #199-Ubuntu SMP Thu Nov 14 03:32:37 UTC 2019 armv7l armv7l armv7l GNU/Linux`
 
 ## Prerequisites
 
@@ -27,11 +35,11 @@ was used (`ilg-xbb-linux.local`).
 
 ### QEMU 4.1.1
 
-On Linux, the versions available on more conservative distributions,
+On Linux, the QEMU versions available on more conservative distributions,
 like Ubuntu 18.04, are too old to be usable, and in this case it is
-necessary to recompile it form sources.
+necessary to recompile QEMU form sources.
 
-In this case the separate folder need to be added to the PATH.
+In this case the separate folder must be added to the PATH.
 
 ```console
 PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
