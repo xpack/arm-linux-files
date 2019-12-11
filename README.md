@@ -137,9 +137,14 @@ sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
 sudo chmod a-w ubu16-arm64-*
 ```
 
-With these new files available, it is possible to start the new virtual machine.
+With these new files available, it is possible to start the new virtual 
+machine. If you work with a remote machine, preferably start qemu within
+a `screen` session. To allow for remote access to the virtual machine, 
+add a forwarder to the ssh port (for example via port 30064).
 
 ```console
+screen -s qemu
+
 cd qemu-arm
 
 qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
@@ -154,9 +159,8 @@ qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
 ...
 ```
 
-You might want to add your own user and configure local settings.
-
-Login as user primus (_primus_ is latin for _first_) and add your user.
+Login as user primus (_primus_ is latin for _first_) to add your user
+and configure local settings.
 
 ```console
 sudo adduser ilg
@@ -172,8 +176,11 @@ Now it is possible to login as the new user.
 
 ```console
 ssh ilg@ilg-xbb-linux.local -p 30064
+```
 
-# add to .profile
+Preferably add the locale settings to the `.profile`:
+
+```console
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
