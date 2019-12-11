@@ -54,7 +54,9 @@ and must be reassembled after download.
 
 #### Download a ready to use image
 
-The image is about 2.4GB large and is assembled from 3 parts.
+For 64-bit Arm Ubuntu 16.04.6, the image is:
+
+- `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and is assembled from 3 parts.
 
 ```console
 curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
@@ -74,8 +76,8 @@ file.
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- ubu16-arm64-initrd.img-4.4.0-170-generic
-- ubu16-arm64-vmlinuz-4.4.0-170-generic
+- `ubu16-arm64-initrd.img-4.4.0-170-generic`
+- `ubu16-arm64-vmlinuz-4.4.0-170-generic`
 
 The commands to download them are:
 
