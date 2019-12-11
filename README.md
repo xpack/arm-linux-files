@@ -15,6 +15,13 @@ major release that supports 64-bit devices.
 
 ## Prerequisites
 
+### A machine to run QEMU
+
+Preferably a Linux machine, but macOS is also known to work.
+
+In this case a headless Ubuntu 18.04 server Intel NUC with i7 and 32GB RAM 
+was used (`ilg-xbb-linux.local`).
+
 ### QEMU 4.1.1
 
 On macOS, qemu can be installed via Homebrew.
