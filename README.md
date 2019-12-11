@@ -36,8 +36,8 @@ For those who want to create this image themselves, below are the
 steps used.
 
 ```console
-mkdir -p qemu-arm
-cd qemu-arm
+mkdir -p $HOME/Work/qemu-arm
+cd $HOME/Work/qemu-arm
 
 curl -L --fail -o ubu16-arm64-installer-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
 curl -L --fail -o ubu16-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
@@ -110,7 +110,7 @@ For 64-bit Arm Ubuntu 16.04.6, use:
 To download them, use:
 
 ```console
-cd qemu-arm
+cd $HOME/Work/qemu-arm
 
 curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
 curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
@@ -121,7 +121,7 @@ The files can be extracted from the qcow2 image, by mounting it with
 files are available for copying.
 
 ```console
-cd qemu-arm
+cd $HOME/Work/qemu-arm
 
 sudo modprobe nbd max_part=8
 sudo qemu-nbd --connect=/dev/nbd0 ubu16-arm64-hda.qcow2
@@ -145,7 +145,7 @@ add a forwarder to the ssh port (for example via port 30064).
 ```console
 screen -s qemu
 
-cd qemu-arm
+cd $HOME/Work/qemu-arm
 
 qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
 -kernel ubu16-arm64-vmlinuz-4.4.0-170-generic \
