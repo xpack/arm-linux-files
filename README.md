@@ -25,12 +25,16 @@ Version 4.1.1 of QEMU was used, installed on macOS via Homebrew.
 
 ### The arm64 (64-bit) image
 
+#### Download a ready to use image
+
 ```console
 curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
 curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
 curl -L --fail -o ubu16-arm64-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ac
 cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
 ```
+
+##### How to prepare the image yourself
 
 For those who want to create this image themselves, below are the
 steps used.
@@ -102,7 +106,9 @@ supported on Arm in this version, thus, when running the image under
 QEMU, the kernel and initrd files must be provided separatelly, as 
 command line options.
 
-For 64-bit Arm Ubuntu 16.04.6, use:
+#### Download the kernel and initrd
+
+For 64-bit Arm Ubuntu 16.04.6, the files are:
 
 - ubu16-arm64-initrd.img-4.4.0-170-generic
 - ubu16-arm64-vmlinuz-4.4.0-170-generic
@@ -115,6 +121,11 @@ cd $HOME/Work/qemu-arm
 curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
 curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
 ```
+
+##### How to extract the kernel and initrd yourself
+
+For those who want to extract these files themselves, below are the
+steps used.
 
 The files can be extracted from the qcow2 image, by mounting it with 
 `qmu-nbd`, and the first partition as a regular filesystem, then the 
@@ -136,6 +147,8 @@ sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
 sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
 sudo chmod a-w ubu16-arm64-*
 ```
+
+#### Start the virtual machine
 
 With these new files available, it is possible to start the new virtual 
 machine. If you work with a remote machine, preferably start qemu within
@@ -178,7 +191,7 @@ Now it is possible to login as the new user.
 ssh ilg@ilg-xbb-linux.local -p 30064
 ```
 
-Preferably add the locale settings to the `.profile`:
+Preferably add the locale settings to the shell `.profile`:
 
 ```console
 export LANGUAGE=en_US.UTF-8
