@@ -58,6 +58,8 @@ For 64-bit Arm Ubuntu 16.04.6, the image is:
 
 - `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and is assembled from 3 parts.
 
+The commands to download and reassemble are:
+
 ```console
 curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
 curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
