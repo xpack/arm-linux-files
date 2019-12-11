@@ -1,7 +1,10 @@
 # arm-linux-files
 
-Various files needed to run Linux on Arm boards. The QEMU related files 
-are attached to release [qemu](https://github.com/xpack/arm-linux-files/releases/tag/qemu).
+This project includes various files needed to run Linux on Arm boards. The 
+files are published as releases:
+
+- [qemu](https://github.com/xpack/arm-linux-files/releases/tag/qemu) - 
+files used to run Arm Linux on QEMU
 
 ## Supported architectures
 
