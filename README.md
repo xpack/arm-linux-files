@@ -21,7 +21,13 @@ changes.
 Due to GitHub limitations, the large files are split into several parts,
 and must be reassembled after download.
 
-Version 4.1.1 of QEMU was used, installed on macOS via Homebrew.
+Version 4.1.1 of QEMU was used, installed on macOS via Homebrew, or
+compiled from sources on a Intel NUC running Ubuntu 18.04, and installed
+in a separate folder.
+
+```console
+PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
+```
 
 ### The arm64 (64-bit) image
 
