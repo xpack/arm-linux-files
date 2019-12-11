@@ -169,7 +169,18 @@ qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
 -netdev user,id=armnet,hostfwd=tcp::30064-:22 \
 -device virtio-net-pci,netdev=armnet \
 -nographic
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 4.4.0-170-generic (buildd@bos02-arm64-047) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12) ) #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 (Ubuntu 4.4.0-170.199-generic 4.4.200)
+[    0.000000] Boot CPU: AArch64 Processor [410fd083]
 ...
+
+Ubuntu 16.04.6 LTS ubu16-arm64 ttyAMA0
+
+ubu16-arm64 login: 
 ```
 
 Login as user primus (_primus_ is latin for _first_) to add your user
@@ -198,6 +209,19 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 ```
+
+#### Power down
+
+To power down the virtual machine, shutdown as usual:
+
+```console
+sudo poweroff
+```
+
+which is a shorcut for `shutdown -P now`.
+
+In QEMU it is also possible to use Ctrl-A C, which will bring
+the QEMU prompt, and issue the `system_powerdown` command.
 
 ### The armhf (32-bit) image
 
