@@ -78,7 +78,7 @@ cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >
 ##### How to prepare the image yourself
 
 For those who want to create this image themselves, 
-the steps used are documented in the separate
+the steps are documented in the separate
 [HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
 file.
 
@@ -101,7 +101,7 @@ curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack
 ##### How to extract the kernel and initrd yourself
 
 For those who want to extract these files themselves, 
-the steps used are documented in the separate
+the steps are documented in the separate
 [HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
 file.
 
