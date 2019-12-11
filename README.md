@@ -13,6 +13,22 @@ The supported Arm architectures are:
 As build environments, the Ubuntu 16.04.6 was selected, as it is the first
 major release that supports 64-bit devices.
 
+## Prerequisites
+
+### QEMU 4.1.1
+
+On macOS, this can be installed via Homebrew.
+
+On Linux, the versions available on more conservative distributions,
+like Ubuntu 18.04, are too old to be usable, and in this case it is
+necessary to recompile it form sources.
+
+In this case the separate folder need to be added to the PATH.
+
+```console
+PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
+```
+
 ## Ubuntu 16.04.6 virtual disks
 
 For convenience, ready to use virtual disk images are provided. The files
@@ -20,14 +36,6 @@ are pristine, as they resulted after the initial install, without any
 changes. 
 Due to GitHub limitations, the large files are split into several parts,
 and must be reassembled after download.
-
-Version 4.1.1 of QEMU was used, installed on macOS via Homebrew, or
-compiled from sources on a Intel NUC running Ubuntu 18.04, and installed
-in a separate folder.
-
-```console
-PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
-```
 
 ### The arm64 (64-bit) image
 
