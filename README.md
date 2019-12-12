@@ -1,7 +1,7 @@
 # arm-linux-files
 
 This project includes various files needed to run Linux on Arm boards,
-especially environments to build Arm binaries.
+especially for development environments used to build Arm binaries.
 
 The files are grouped by named releases:
 
