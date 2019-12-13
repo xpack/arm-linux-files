@@ -80,6 +80,7 @@ $ cd $HOME/Work/qemu-arm
 $ curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
 $ curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
 $ curl -L --fail -o ubu16-arm64-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ac
+$ chmod a-w ubu16-arm64-hda.qcow2-a*
 $ cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
 ```
 
@@ -242,6 +243,7 @@ $ cd $HOME/Work/qemu-arm
 $ curl -L --fail -o ubu16-armhf-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-aa
 $ curl -L --fail -o ubu16-armhf-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-ab
 $ curl -L --fail -o ubu16-armhf-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-ac
+$ chmod a-w ubu16-armhf-hda.qcow2-a*
 $ cat ubu16-armhf-hda.qcow2-aa ubu16-armhf-hda.qcow2-ab ubu16-armhf-hda.qcow2-ac >ubu16-armhf-hda.qcow2
 ```
 
