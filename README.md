@@ -168,8 +168,7 @@ Core(s) per socket:    4
 Socket(s):             1
 NUMA node(s):          1
 NUMA node0 CPU(s):     0-3
-primus@ubu16-arm64:~$ 
-nproc
+primus@ubu16-arm64:~$ nproc
 4
 primus@ubu16-arm64:~$ sudo poweroff
 [sudo] password for primus: 
@@ -300,16 +299,48 @@ $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 -nographic -no-reboot
 
 [    0.000000] Booting Linux on physical CPU 0x0
-[    0.000000] Initializing cgroup subsys cpuset
-[    0.000000] Initializing cgroup subsys cpu
-[    0.000000] Initializing cgroup subsys cpuacct
-[    0.000000] Linux version 4.4.0-170-generic (buildd@bos02-arm64-047) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12) ) #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 (Ubuntu 4.4.0-170.199-generic 4.4.200)
-[    0.000000] Boot CPU: AArch64 Processor [410fd083]
+[    0.000000] Linux version 4.15.0-72-generic-lpae (buildd@bos02-arm64-024) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12)) #81~16.04.1-Ubuntu SMP Tue Nov 26 19:06:09 UTC 2019 (Ubuntu 4.15.0-72.81~16.04.1-generic-lpae 4.15.18)
+[    0.000000] CPU: ARMv7 Processor [412fc0f1] revision 1 (ARMv7), cr=30c5387d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, PIPT instruction cache
+[    0.000000] OF: fdt: Machine model: linux,dummy-virt
+[    0.000000] Memory policy: Data cache writealloc
 ...
+
+[  OK  ] Started Update UTMP about System Runlevel Changes.
 
 Ubuntu 16.04.6 LTS ubu16-armhf ttyAMA0
 
-ubu16-armhf login: 
+ubu16-armhf login: primus
+Password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-72-generic-lpae armv7l)
+
+...
+primus@ubu16-armhf:~$ uname -a
+Linux ubu16-armhf 4.15.0-72-generic-lpae #81~16.04.1-Ubuntu SMP Tue Nov 26 19:06:09 UTC 2019 armv7l armv7l armv7l GNU/Linux
+primus@ubu16-armhf:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 16.04.6 LTS
+Release:	16.04
+Codename:	xenial
+primus@ubu16-armhf:~$ lscpu
+Architecture:          armv7l
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    1
+Core(s) per socket:    4
+Socket(s):             1
+Model name:            ARMv7 Processor rev 1 (v7l)
+primus@ubu16-armhf:~$ nproc
+4
+primus@ubu16-armhf:~$ sudo poweroff
+[sudo] password for primus: 
+[  OK  ] Stopped target Timers.
+...
+[  OK  ] Reached target Shutdown.
+[  135.192446] reboot: Power down
 ```
 
 You can continue to use
