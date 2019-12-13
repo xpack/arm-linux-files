@@ -16,8 +16,8 @@ themselves, below are the steps used.
 ```console
 $ cd $HOME/Work/qemu-arm
 
-$ curl -L --fail -o ubu16-arm64-installer-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
-$ curl -L --fail -o ubu16-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
+$ curl -L --fail -o ubu16-arm64-installer-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/hwe-netboot/ubuntu-installer/arm64/linux
+$ curl -L --fail -o ubu16-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/hwe-netboot/ubuntu-installer/arm64/initrd.gz
 
 $ qemu-img create -f qcow2 ubu16-arm64-hda.qcow2 32G
 Formatting 'ubu16-arm64-hda.qcow2', fmt=qcow2 size=34359738368 cluster_size=65536 lazy_refcounts=off refcount_bits=16
@@ -31,12 +31,9 @@ $ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 -device virtio-net-pci,netdev=armnet \
 -nographic -no-reboot
 
-[    0.000000] Booting Linux on physical CPU 0x0
-[    0.000000] Initializing cgroup subsys cpuset
-[    0.000000] Initializing cgroup subsys cpu
-[    0.000000] Initializing cgroup subsys cpuacct
-[    0.000000] Linux version 4.4.0-142-generic (buildd@bos02-arm64-015) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.10) ) #168-Ubuntu SMP Wed Jan 16 21:00:53 UTC 2019 (Ubuntu 4.4.0-142.168-generic 4.4.167)
-[    0.000000] Boot CPU: AArch64 Processor [410fd083]
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd083]
+[    0.000000] Linux version 4.15.0-45-generic (buildd@bos02-arm64-015) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.10)) #48~16.04.1-Ubuntu SMP Tue Jan 29 18:10:13 UTC 2019 (Ubuntu 4.15.0-45.48~16.04.1-generic 4.15.18)
+[    0.000000] Machine model: linux,dummy-virt
 ...
 ```
 
@@ -48,11 +45,15 @@ During the install, the default selections were used.
 - Archive mirror country: United States
 	- us.ports.ubuntu.com
 - HTTP proxy: (none)
-- Full name: Adminus Maximus
+- ... crunching silently for a few minutes, be patient ...
+- Loading additional components
+- ... crunching silently ...
+- Full name: Primus Adminus
 - Username: `primus/primus` <---
 	- Use weak password: Yes
 	- Encrypt home directory: No
-- Time zone: No autodetect, Eastern
+- Time zone: Is this time zone correct? No, 
+	- Select your time zone: Eastern
 - Partition disk
 	- Partitioning method: Guided - use entire disk
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
