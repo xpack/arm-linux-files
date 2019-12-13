@@ -14,13 +14,13 @@ For those who want to create this image
 themselves, below are the steps used.
 
 ```console
-$ mkdir -p $HOME/Work/qemu-arm
 $ cd $HOME/Work/qemu-arm
 
 $ curl -L --fail -o ubu16-arm64-installer-linux http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
 $ curl -L --fail -o ubu16-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
 
 $ qemu-img create -f qcow2 ubu16-arm64-hda.qcow2 32G
+Formatting 'ubu16-arm64-hda.qcow2', fmt=qcow2 size=34359738368 cluster_size=65536 lazy_refcounts=off refcount_bits=16
 
 $ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 -kernel ubu16-arm64-installer-linux \
@@ -30,6 +30,13 @@ $ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 -netdev user,id=armnet \
 -device virtio-net-pci,netdev=armnet \
 -nographic -no-reboot
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 4.4.0-142-generic (buildd@bos02-arm64-015) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.10) ) #168-Ubuntu SMP Wed Jan 16 21:00:53 UTC 2019 (Ubuntu 4.4.0-142.168-generic 4.4.167)
+[    0.000000] Boot CPU: AArch64 Processor [410fd083]
 ...
 ```
 
@@ -97,8 +104,8 @@ $ split -b 1024m hda-ubu16-arm64.qcow2 hda-ubu16-arm64.qcow2-
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- ubu16-arm64-initrd.img-4.4.0-170-generic
-- ubu16-arm64-vmlinuz-4.4.0-170-generic
+- `ubu16-arm64-initrd.img-4.4.0-170-generic`
+- `ubu16-arm64-vmlinuz-4.4.0-170-generic`
 
 For those who want to extract these files themselves, below are the
 steps used.
@@ -108,20 +115,20 @@ qcow2 file with `qmu-nbd`, then mounting the first partition as a regular
 filesystem, and finally copying the files.
 
 ```console
-cd $HOME/Work/qemu-arm
+$ cd $HOME/Work/qemu-arm
 
-sudo modprobe nbd max_part=8
-sudo qemu-nbd --connect=/dev/nbd0 ubu16-arm64-hda.qcow2
-sudo fdisk /dev/nbd0 -l
-mkdir -p $HOME/tmp/mntpoint
-sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
-ls -l $HOME/tmp/mntpoint
-cp $HOME/tmp/mntpoint/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
-cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
-sudo cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
-sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
-sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
-sudo chmod a-w ubu16-arm64-*
+$ sudo modprobe nbd max_part=8
+$ sudo qemu-nbd --connect=/dev/nbd0 ubu16-arm64-hda.qcow2
+$ sudo fdisk /dev/nbd0 -l
+$ mkdir -p $HOME/tmp/mntpoint
+$ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
+$ ls -l $HOME/tmp/mntpoint
+$ cp $HOME/tmp/mntpoint/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
+$ cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ sudo chmod a-w ubu16-arm64-*
 ```
 
 ## The armhf (32-bit) image
@@ -140,10 +147,10 @@ $ mkdir -p $HOME/Work/qemu-arm
 $ cd $HOME/Work/qemu-arm
 
 $ curl -L --fail -o ubu16-armhf-installer-vmlinuz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-armhf/current/images/hwe-generic-lpae/netboot/vmlinuz
-
 $ curl -L --fail -o ubu16-armhf-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/xenial-updates/main/installer-armhf/current/images/hwe-generic-lpae/netboot/initrd.gz
 
 $ qemu-img create -f qcow2 ubu16-armhf-hda.qcow2 32G
+Formatting 'ubu16-armhf-hda.qcow2', fmt=qcow2 size=34359738368 cluster_size=65536 lazy_refcounts=off refcount_bits=16
 
 $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 -kernel ubu16-armhf-installer-vmlinuz \
@@ -153,6 +160,7 @@ $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 -netdev user,id=armnet \
 -device virtio-net-device,netdev=armnet \
 -nographic -no-reboot
+
 [    0.000000] Booting Linux on physical CPU 0x0
 [    0.000000] Linux version 4.15.0-45-generic-lpae (buildd@bos02-arm64-019) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.10)) #48~16.04.1-Ubuntu SMP Tue Jan 29 19:55:21 UTC 2019 (Ubuntu 4.15.0-45.48~16.04.1-generic-lpae 4.15.18)
 [    0.000000] CPU: ARMv7 Processor [412fc0f1] revision 1 (ARMv7), cr=30c5387d
