@@ -198,7 +198,7 @@ For long tasks it is also recommended to start them inside a `screen` session:
 $ sudo apt install -y screen
 ```
 
-Now it is possible to login as the new user.
+Now it is also possible to remotely login as the new user.
 
 ```console
 $ ssh ilg@ilg-xbb-linux.local -p 30064
@@ -361,7 +361,7 @@ For long tasks it is also recommended to start them inside a `screen` session:
 $ sudo apt install -y screen
 ```
 
-Now it is possible to login as the new user.
+Now it is also possible to remotely login as the new user.
 
 ```console
 $ ssh ilg@ilg-xbb-linux.local -p 30032
