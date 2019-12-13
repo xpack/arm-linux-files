@@ -223,16 +223,16 @@ file.
 
 For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
-- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
+- `ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae`
+- `ubu16-armhf-initrd.img-4.15.0-72-generic-lpae`
 
 The commands to download them are:
 
 ```console
 $ cd $HOME/Work/qemu-arm
 
-$ curl -L --fail -o ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae
-$ curl -L --fail -o ubu16-armhf-initrd.img-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
+$ curl -L --fail -o ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
+$ curl -L --fail -o ubu16-armhf-initrd.img-4.15.0-72-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -255,8 +255,8 @@ $ screen -s qemu
 $ cd $HOME/Work/qemu-arm
 
 $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
--kernel ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae \
--initrd ubu16-armhf-initrd.img-4.4.0-170-generic-lpae \
+-kernel ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae \
+-initrd ubu16-armhf-initrd.img-4.15.0-72-generic-lpae \
 -drive if=none,file=ubu16-armhf-hda.qcow2,format=qcow2,id=hd \
 -device virtio-blk-device,drive=hd \
 -netdev user,id=armnet,hostfwd=tcp::30032-:22 \
