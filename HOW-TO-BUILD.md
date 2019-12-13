@@ -197,8 +197,8 @@ $ split -b 1024m ubu16-armhf-hda.qcow2 ubu16-armhf-hda.qcow2-
 
 For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
-- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
+- `ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae`
+- `ubu16-armhf-initrd.img-4.15.0-72-generic-lpae`
 
 For those who want to extract these files themselves, below are the
 steps used.
@@ -216,8 +216,8 @@ $ sudo fdisk /dev/nbd0 -l
 $ mkdir -p $HOME/tmp/mntpoint
 $ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
 $ ls -l $HOME/tmp/mntpoint
-$ cp $HOME/tmp/mntpoint/initrd.img-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
+$ cp $HOME/tmp/mntpoint/initrd.img-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ sudo chown $(whoami) ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
 $ sudo chmod +r ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
 $ sudo chmod a-w ubu16-armhf-*
