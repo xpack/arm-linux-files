@@ -186,7 +186,7 @@ $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 ```
 
 During the install, the default selections were used. The steps are
-identical as above, except the hostname is `ubu16-armhf`.
+the same as for the 64-bit image, except the hostname is `ubu16-armhf`.
 
 The command to split the file is:
 
