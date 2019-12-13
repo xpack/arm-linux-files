@@ -12,6 +12,7 @@ For 64-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
 For those who want to create this image 
 themselves, below are the steps used.
+To get a more recent kernel, select the HWE folder. 
 
 ```console
 $ cd $HOME/Work/qemu-arm
@@ -140,7 +141,9 @@ For 32-bit Arm Ubuntu 16.04.6, the ready to use file is:
 - `ubu16-armhf-hda.qcow2`
 
 For those who want to create this image 
-themselves, below are the steps used:
+themselves, below are the steps used.
+To get a more recent kernel, select the HWE folder. 
+
 
 ```console
 $ mkdir -p $HOME/Work/qemu-arm
