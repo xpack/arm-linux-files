@@ -59,9 +59,9 @@ During the install, the default selections were used.
 	- Partitioning method: Guided - use entire disk
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
 	- The following partitions are going to be formatted:
-		- #1 ext2
-		- #2 ext4
-		- #3 swap
+		- partition #1 ext2
+		- partition #2 ext4
+		- partition #3 swap
 	- Write the changes to disks: Yes
 - Installation step failed during: Select and install software
 - Select and install software
