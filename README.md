@@ -94,16 +94,16 @@ file.
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-arm64-vmlinuz-4.4.0-170-generic`
-- `ubu16-arm64-initrd.img-4.4.0-170-generic`
+- `ubu16-arm64-vmlinuz-4.15.0-72-generic`
+- `ubu16-arm64-initrd.img-4.15.0-72-generic`
 
 The commands to download them are:
 
 ```console
 $ cd $HOME/Work/qemu-arm
 
-$ curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
-$ curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
+$ curl -L --fail -o ubu16-arm64-vmlinuz-4.15.0-72-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.15.0-72-generic
+$ curl -L --fail -o ubu16-arm64-initrd.img-4.15.0-72-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.15.0-72-generic
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -120,14 +120,17 @@ machine. If you work with a remote machine, preferably start qemu within
 a `screen` session. To allow for remote access to the virtual machine, 
 add a forwarder to the ssh port (for example via port 30064).
 
+After the system boots, you can login as user `primus` password `primus` 
+(_primus_ is latin for _first_). 
+
 ```console
 $ screen -S qemu
 
 $ cd $HOME/Work/qemu-arm
 
 $ qemu-system-aarch64 -M virt -m 8G -smp 4 -cpu cortex-a72 \
--kernel ubu16-arm64-vmlinuz-4.4.0-170-generic \
--initrd ubu16-arm64-initrd.img-4.4.0-170-generic \
+-kernel ubu16-arm64-vmlinuz-4.15.0-72-generic \
+-initrd ubu16-arm64-initrd.img-4.15.0-72-generic \
 -append 'root=/dev/vda2' \
 -drive if=none,file=ubu16-arm64-hda.qcow2,format=qcow2,id=hd \
 -device virtio-blk-pci,drive=hd \
@@ -135,21 +138,51 @@ $ qemu-system-aarch64 -M virt -m 8G -smp 4 -cpu cortex-a72 \
 -device virtio-net-pci,netdev=armnet \
 -nographic
 
-[    0.000000] Booting Linux on physical CPU 0x0
-[    0.000000] Initializing cgroup subsys cpuset
-[    0.000000] Initializing cgroup subsys cpu
-[    0.000000] Initializing cgroup subsys cpuacct
-[    0.000000] Linux version 4.4.0-170-generic (buildd@bos02-arm64-047) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12) ) #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 (Ubuntu 4.4.0-170.199-generic 4.4.200)
-[    0.000000] Boot CPU: AArch64 Processor [410fd083]
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd083]
+[    0.000000] Linux version 4.15.0-72-generic (buildd@bos02-arm64-055) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12)) #81~16.04.1-Ubuntu SMP Tue Nov 26 16:31:09 UTC 2019 (Ubuntu 4.15.0-72.81~16.04.1-generic 4.15.18)
+[    0.000000] Machine model: linux,dummy-virt
 ...
 
 Ubuntu 16.04.6 LTS ubu16-arm64 ttyAMA0
 
 ubu16-arm64 login: 
+Password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-72-generic aarch64)
+
+...
+primus@ubu16-arm64:~$ uname -a
+Linux ubu16-arm64 4.15.0-72-generic #81~16.04.1-Ubuntu SMP Tue Nov 26 16:31:09 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux
+primus@ubu16-arm64:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 16.04.6 LTS
+Release:	16.04
+Codename:	xenial
+primus@ubu16-arm64:~$ lscpu
+Architecture:          aarch64
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    1
+Core(s) per socket:    4
+Socket(s):             1
+NUMA node(s):          1
+NUMA node0 CPU(s):     0-3
+primus@ubu16-arm64:~$ 
+nproc
+4
+primus@ubu16-arm64:~$ sudo poweroff
+[sudo] password for primus: 
+         Stopping Session 1 of user primus.
+[  OK  ] Closed Load/Save RF Kill Switch Status /dev/rfkill Watch.
+...
+[  OK  ] Reached target Shutdown.
+[  207.517093] reboot: Power down
+
 ```
 
-Login as user `primus` (_primus_ is latin for _first_). You can use
-this initial user, or, if you prefer, you can add your user
+You can continue to use
+this initial user, or, if you prefer, you can add your own user
 and configure local settings.
 
 ```console
@@ -249,6 +282,9 @@ machine. If you work with a remote machine, preferably start qemu within
 a `screen` session. To allow for remote access to the virtual machine, 
 add a forwarder to the ssh port (for example via port 30064).
 
+After the system boots, you can login as user `primus` password `primus` 
+(_primus_ is latin for _first_). 
+
 ```console
 $ screen -S qemu
 
@@ -276,8 +312,8 @@ Ubuntu 16.04.6 LTS ubu16-armhf ttyAMA0
 ubu16-armhf login: 
 ```
 
-Login as user `primus` (_primus_ is latin for _first_). You can use
-this initial user, or, if you prefer, you can add your user
+You can continue to use
+this initial user, or, if you prefer, you can add your own user
 and configure local settings.
 
 ```console
