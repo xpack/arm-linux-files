@@ -94,16 +94,16 @@ file.
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-arm64-initrd.img-4.4.0-170-generic`
 - `ubu16-arm64-vmlinuz-4.4.0-170-generic`
+- `ubu16-arm64-initrd.img-4.4.0-170-generic`
 
 The commands to download them are:
 
 ```console
 $ cd $HOME/Work/qemu-arm
 
-$ curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
 $ curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -223,16 +223,16 @@ file.
 
 For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
 - `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
+- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
 
 The commands to download them are:
 
 ```console
 $ cd $HOME/Work/qemu-arm
 
-$ curl -L --fail -o ubu16-armhf-initrd.img-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
 $ curl -L --fail -o ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae
+$ curl -L --fail -o ubu16-armhf-initrd.img-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -320,4 +320,10 @@ which is a shorcut for `shutdown -P now`.
 
 In QEMU it is also possible to use Ctrl-A C, which will bring
 the QEMU prompt, and issue the `system_powerdown` command.
+
+## Comments
+
+Although running a virtual machine sacrifices some performance, QEMU
+is resonably fast, and for experimenting and even running some
+build scripts, it is acceptable.
 
