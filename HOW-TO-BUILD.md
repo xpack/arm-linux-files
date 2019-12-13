@@ -123,11 +123,11 @@ $ sudo fdisk /dev/nbd0 -l
 $ mkdir -p $HOME/tmp/mntpoint
 $ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
 $ ls -l $HOME/tmp/mntpoint
-$ cp $HOME/tmp/mntpoint/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
 $ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ cp $HOME/tmp/mntpoint/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
 $ sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
 $ sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
-$ sudo chmod a-w ubu16-arm64-*
+$ sudo chmod a-w ubu16-arm64-vmlinuz-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
 ```
 
 ## The armhf (32-bit) image
@@ -220,5 +220,5 @@ $ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-vmlinuz-
 $ cp $HOME/tmp/mntpoint/initrd.img-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ sudo chown $(whoami) ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
 $ sudo chmod +r ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
-$ sudo chmod a-w ubu16-armhf-*
+$ sudo chmod a-w vmlinuz-4.15.0-72-generic-lpae initrd.img-4.15.0-72-generic-lpae
 ```
