@@ -121,11 +121,11 @@ a `screen` session. To allow for remote access to the virtual machine,
 add a forwarder to the ssh port (for example via port 30064).
 
 ```console
-screen -s qemu
+$ screen -s qemu
 
-cd $HOME/Work/qemu-arm
+$ cd $HOME/Work/qemu-arm
 
-qemu-system-aarch64 -M virt -m 8G -smp 4 -cpu cortex-a72 \
+$ qemu-system-aarch64 -M virt -m 8G -smp 4 -cpu cortex-a72 \
 -kernel ubu16-arm64-vmlinuz-4.4.0-170-generic \
 -initrd ubu16-arm64-initrd.img-4.4.0-170-generic \
 -append 'root=/dev/vda2' \
@@ -195,9 +195,129 @@ the QEMU prompt, and issue the `system_powerdown` command.
 
 ### The armhf (32-bit) image
 
-For 32-bit Arm Ubuntu 16.04.6, use:
+#### Download a ready to use image
+
+For 32-bit Arm Ubuntu 16.04.6, the image is:
+
+- `ubu16-armhf-hda.qcow2`; it is about 2.4GB large and must be assembled from 3 parts.
+
+The commands to download and reassemble are:
+
+```console
+$ cd $HOME/Work/qemu-arm
+
+$ curl -L --fail -o ubu16-armhf-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-aa
+$ curl -L --fail -o ubu16-armhf-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-ab
+$ curl -L --fail -o ubu16-armhf-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-hda.qcow2-ac
+$ cat ubu16-armhf-hda.qcow2-aa ubu16-armhf-hda.qcow2-ab ubu16-armhf-hda.qcow2-ac >ubu16-armhf-hda.qcow2
+```
+
+##### How to prepare the image yourself
+
+For those who want to create this image themselves, 
+the steps are documented in the separate
+[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
+file.
+
+#### Download ready to use kernel and initrd
+
+For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
 - `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
 - `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
 
-TODO: update with details.
+The commands to download them are:
+
+```console
+$ cd $HOME/Work/qemu-arm
+
+$ curl -L --fail -o ubu16-armhf-initrd.img-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
+$ curl -L --fail -o ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae
+```
+
+##### How to extract the kernel and initrd yourself
+
+For those who want to extract these files themselves, 
+the steps are documented in the separate
+[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
+file.
+
+#### Start the virtual machine
+
+With these new files available, it is possible to start the new virtual 
+machine. If you work with a remote machine, preferably start qemu within
+a `screen` session. To allow for remote access to the virtual machine, 
+add a forwarder to the ssh port (for example via port 30064).
+
+```console
+$ screen -s qemu
+
+$ cd $HOME/Work/qemu-arm
+
+$ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
+-kernel ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae \
+-initrd ubu16-armhf-initrd.img-4.4.0-170-generic-lpae \
+-drive if=none,file=ubu16-armhf-hda.qcow2,format=qcow2,id=hd \
+-device virtio-blk-device,drive=hd \
+-netdev user,id=armnet,hostfwd=tcp::30032-:22 \
+-device virtio-net-device,netdev=armnet \
+-nographic -no-reboot
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 4.4.0-170-generic (buildd@bos02-arm64-047) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.12) ) #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 (Ubuntu 4.4.0-170.199-generic 4.4.200)
+[    0.000000] Boot CPU: AArch64 Processor [410fd083]
+...
+
+Ubuntu 16.04.6 LTS ubu16-armhf ttyAMA0
+
+ubu16-armhf login: 
+```
+
+Login as user `primus` (_primus_ is latin for _first_). You can use
+this initial user, or, if you prefer, you can add your user
+and configure local settings.
+
+```console
+$ sudo adduser ilg
+$ sudo usermod -aG sudo ilg
+
+$ sudo dpkg-reconfigure tzdata
+$ cat /etc/timezone
+```
+
+For long tasks it is also recommended to start them inside a `screen` session:
+
+```console
+$ sudo apt install -y screen
+```
+
+Now it is possible to login as the new user.
+
+```console
+$ ssh ilg@ilg-xbb-linux.local -p 30032
+```
+
+Preferably add the locale settings to the shell `.profile`:
+
+```console
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+```
+
+#### Power down
+
+To power down the virtual machine, shutdown as usual:
+
+```console
+$ sudo poweroff
+```
+
+which is a shorcut for `shutdown -P now`.
+
+In QEMU it is also possible to use Ctrl-A C, which will bring
+the QEMU prompt, and issue the `system_powerdown` command.
+
