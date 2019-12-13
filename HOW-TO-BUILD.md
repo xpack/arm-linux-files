@@ -1,6 +1,7 @@
 # How to build
 
-This file documents how the various files were created.
+This file documents how the various files were created, and can be used 
+as a template for creating custom images, for example larger ones.
 
 ## The arm64 (64-bit) image
 
@@ -12,7 +13,9 @@ For 64-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
 For those who want to create this image 
 themselves, below are the steps used.
-To get a more recent kernel, select the HWE folder. 
+To get a more recent kernel, select the HWE folder.
+The image size is 32GB, but can be easily changed to
+any value.
 
 ```console
 $ cd $HOME/Work/qemu-arm
@@ -143,7 +146,8 @@ For 32-bit Arm Ubuntu 16.04.6, the ready to use file is:
 For those who want to create this image 
 themselves, below are the steps used.
 To get a more recent kernel, select the HWE folder. 
-
+The image size is 32GB, but can be easily changed to
+any value.
 
 ```console
 $ mkdir -p $HOME/Work/qemu-arm
