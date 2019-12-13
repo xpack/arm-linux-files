@@ -121,7 +121,7 @@ a `screen` session. To allow for remote access to the virtual machine,
 add a forwarder to the ssh port (for example via port 30064).
 
 ```console
-$ screen -s qemu
+$ screen -S qemu
 
 $ cd $HOME/Work/qemu-arm
 
@@ -250,7 +250,7 @@ a `screen` session. To allow for remote access to the virtual machine,
 add a forwarder to the ssh port (for example via port 30064).
 
 ```console
-$ screen -s qemu
+$ screen -S qemu
 
 $ cd $HOME/Work/qemu-arm
 
