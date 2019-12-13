@@ -235,7 +235,7 @@ $ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-vmlinuz-
 $ cp $HOME/tmp/mntpoint/initrd.img-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ sudo chown $(whoami) ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
 $ sudo chmod +r ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
-$ sudo chmod a-w vmlinuz-4.15.0-72-generic-lpae initrd.img-4.15.0-72-generic-lpae
+$ sudo chmod a-w ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ sudo umount $HOME/tmp/mntpoint
 $ sudo qemu-nbd --disconnect /dev/nbd0
 $ sudo rmmod nbd
