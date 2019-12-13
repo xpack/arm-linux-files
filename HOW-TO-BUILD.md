@@ -54,19 +54,19 @@ During the install, the default selections were used.
 		- #2 ext4
 		- #3 swap
 	- Write the changes to disks: Yes
-- Installation step failed during Select and install software
+- Installation step failed during: Select and install software
 - Select and install software
-- No automatic updates
+- Manage updates: No automatic updates
 - Software selection
 	- standard system utilities
 	- OpenSSH server <---
-- Installation step failed during Select and install software
+- Installation step failed during: Select and install software
 - Select and install software
-- No automatic updates
+- Manage updates: No automatic updates
 - Software selection
 	- standard system utilities
 	- OpenSSH server <---
-- Installation step failed during Make the system bootable
+- Installation step failed during: Make the system bootable
 - Continue without boot loader
 
 ```
@@ -153,6 +153,27 @@ $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 -netdev user,id=armnet \
 -device virtio-net-device,netdev=armnet \
 -nographic -no-reboot
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.15.0-45-generic-lpae (buildd@bos02-arm64-019) (gcc version 5.4.0 20160609 (Ubuntu/Linaro 5.4.0-6ubuntu1~16.04.10)) #48~16.04.1-Ubuntu SMP Tue Jan 29 19:55:21 UTC 2019 (Ubuntu 4.15.0-45.48~16.04.1-generic-lpae 4.15.18)
+[    0.000000] CPU: ARMv7 Processor [412fc0f1] revision 1 (ARMv7), cr=30c5387d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, PIPT instruction cache
+[    0.000000] OF: fdt: Machine model: linux,dummy-virt
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] efi: Getting EFI parameters from FDT:
+[    0.000000] efi: UEFI not found.
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv0.2 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] random: get_random_bytes called from start_kernel+0xb8/0x488 with crng_init=0
+[    0.000000] percpu: Embedded 19 pages/cpu @(ptrval) s45580 r8192 d24052 u77824
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 2095424
+[    0.000000] Kernel command line: 
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] allocated 8388608 bytes of page_ext
+[    0.000000] Memory: 8264324K/8388608K available (12288K kernel code, 919K rwdata, 4304K rodata, 2048K init, 740K bss, 124284K reserved, 0K cma-reserved, 7602176K highmem)
 ...
 ```
 
