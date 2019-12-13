@@ -45,7 +45,7 @@ During the install, the default selections were used.
 
 - Language: English
 - Country: United States
-- Hostname: `ubu16-arm64` <---
+- Hostname: `ubu16-arm64` <--- (`ubu16-armhf` for 32-bit)
 - Archive mirror country: United States
 	- us.ports.ubuntu.com
 - HTTP proxy: (none)
@@ -62,9 +62,9 @@ During the install, the default selections were used.
 	- Partitioning method: Guided - use entire disk
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
 	- The following partitions are going to be formatted:
-		- partition #1 ext2
-		- partition #2 ext4
-		- partition #3 swap
+		- partition #1 of Virtual disk 1 (vda) as ext2
+    		- partition #2 of Virtual disk 1 (vda) as ext4
+    		- partition #5 of Virtual disk 1 (vda) as swap
 	- Write the changes to disks: Yes
 - Installation step failed during: Select and install software
 - Select and install software
@@ -102,7 +102,7 @@ The resulting file is larger than 2 GB and must be split into separate
 parts to be published on GitHub:
 
 ```console
-$ split -b 1024m hda-ubu16-arm64.qcow2 hda-ubu16-arm64.qcow2-
+$ split -b 1024m ubu16-arm64-hda.qcow2 ubu16-arm64-hda.qcow2-
 ```
 
 ### How to extract the kernel and initrd 
@@ -192,8 +192,8 @@ $ qemu-system-arm -M virt -m 8G -smp 4 -cpu cortex-a15 \
 ...
 ```
 
-During the install, the default selections were used. The steps are
-the same as for the 64-bit image, except the hostname is `ubu16-armhf`.
+During the install, the default selections were used. The steps are the
+same as for the 64-bit image, except the hostname, which is `ubu16-armhf`.
 
 The command to split the file is:
 
