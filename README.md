@@ -50,6 +50,12 @@ needs to be installed.
 
 On macOS, QEMU can be installed via Homebrew.
 
+### A work folder
+
+```console
+$ mkdir -p $HOME/Work/qemu-arm
+```
+
 ## Ubuntu 16.04.6 virtual disks
 
 For convenience, ready to use virtual disk images are provided. The files
@@ -69,10 +75,12 @@ For 64-bit Arm Ubuntu 16.04.6, the image is:
 The commands to download and reassemble are:
 
 ```console
-curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
-curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
-curl -L --fail -o ubu16-arm64-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ac
-cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
+$ cd $HOME/Work/qemu-arm
+
+$ curl -L --fail -o ubu16-arm64-hda.qcow2-aa https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-aa
+$ curl -L --fail -o ubu16-arm64-hda.qcow2-ab https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ab
+$ curl -L --fail -o ubu16-arm64-hda.qcow2-ac https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-hda.qcow2-ac
+$ cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
 ```
 
 ##### How to prepare the image yourself
@@ -92,10 +100,10 @@ For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 The commands to download them are:
 
 ```console
-cd $HOME/Work/qemu-arm
+$ cd $HOME/Work/qemu-arm
 
-curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
-curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
+$ curl -L --fail -o ubu16-arm64-initrd.img-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.4.0-170-generic
+$ curl -L --fail -o ubu16-arm64-vmlinuz-4.4.0-170-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.4.0-170-generic
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -112,15 +120,12 @@ machine. If you work with a remote machine, preferably start qemu within
 a `screen` session. To allow for remote access to the virtual machine, 
 add a forwarder to the ssh port (for example via port 30064).
 
-The `-m 16G` is generous, because the host machine has 32G; for
-a configuration with 4 core probably 8GB are enough.
-
 ```console
 screen -s qemu
 
 cd $HOME/Work/qemu-arm
 
-qemu-system-aarch64 -M virt -m 16G -smp 4 -cpu cortex-a72 \
+qemu-system-aarch64 -M virt -m 8G -smp 4 -cpu cortex-a72 \
 -kernel ubu16-arm64-vmlinuz-4.4.0-170-generic \
 -initrd ubu16-arm64-initrd.img-4.4.0-170-generic \
 -append 'root=/dev/vda2' \
@@ -148,19 +153,23 @@ this initial user, or, if you prefer, you can add your user
 and configure local settings.
 
 ```console
-sudo adduser ilg
-sudo usermod -aG sudo ilg
+$ sudo adduser ilg
+$ sudo usermod -aG sudo ilg
 
-sudo dpkg-reconfigure tzdata
-cat /etc/timezone
+$ sudo dpkg-reconfigure tzdata
+$ cat /etc/timezone
+```
 
-sudo apt install -y screen
+For long tasks it is also recommended to start them inside a `screen` session:
+
+```console
+$ sudo apt install -y screen
 ```
 
 Now it is possible to login as the new user.
 
 ```console
-ssh ilg@ilg-xbb-linux.local -p 30064
+$ ssh ilg@ilg-xbb-linux.local -p 30064
 ```
 
 Preferably add the locale settings to the shell `.profile`:
@@ -176,7 +185,7 @@ export LC_ALL=en_US.UTF-8
 To power down the virtual machine, shutdown as usual:
 
 ```console
-sudo poweroff
+$ sudo poweroff
 ```
 
 which is a shorcut for `shutdown -P now`.
@@ -188,7 +197,7 @@ the QEMU prompt, and issue the `system_powerdown` command.
 
 For 32-bit Arm Ubuntu 16.04.6, use:
 
-- ubu16-armhf-initrd.img-4.4.0-170-generic-lpae
-- ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae
+- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
+- `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
 
 TODO: update with details.
