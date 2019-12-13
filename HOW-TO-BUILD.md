@@ -11,6 +11,8 @@ For 64-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
 - `ubu16-arm64-hda.qcow2`
 
+The SHA256 sum is `3e02ed43a4c727e54ecf75e81170f1e776985864637cb23a15dc02916124e5cc`.
+
 For those who want to create this image 
 themselves, below are the steps used.
 To get a more recent kernel, select the HWE folder.
@@ -142,6 +144,8 @@ $ sudo chmod a-w ubu16-arm64-vmlinuz-4.4.0-170-generic ubu16-arm64-initrd.img-4.
 For 32-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
 - `ubu16-armhf-hda.qcow2`
+
+The SHA256 sum is `20c7cf917d1b42cb0597e53de55d9c17a831bc2817c49cb769176f9aa03e1613`.
 
 For those who want to create this image 
 themselves, below are the steps used.
