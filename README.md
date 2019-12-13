@@ -104,6 +104,7 @@ $ cd $HOME/Work/qemu-arm
 
 $ curl -L --fail -o ubu16-arm64-vmlinuz-4.15.0-72-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-vmlinuz-4.15.0-72-generic
 $ curl -L --fail -o ubu16-arm64-initrd.img-4.15.0-72-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.15.0-72-generic
+$ chmod a-w ubu16-arm64-vmlinuz-4.15.0-72-generic ubu16-arm64-initrd.img-4.15.0-72-generic
 ```
 
 ##### How to extract the kernel and initrd yourself
@@ -265,6 +266,7 @@ $ cd $HOME/Work/qemu-arm
 
 $ curl -L --fail -o ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
 $ curl -L --fail -o ubu16-armhf-initrd.img-4.15.0-72-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
+$ chmod a-w ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 ```
 
 ##### How to extract the kernel and initrd yourself
