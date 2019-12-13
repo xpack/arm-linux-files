@@ -110,7 +110,7 @@ For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 For those who want to extract these files themselves, below are the
 steps used.
 
-The files can be extracted from the qcow2 image, by first mounting the
+The files can be extracted from the image, by first mounting the
 qcow2 file with `qmu-nbd`, then mounting the first partition as a regular 
 filesystem, and finally copying the files.
 
@@ -124,7 +124,6 @@ $ mkdir -p $HOME/tmp/mntpoint
 $ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
 $ ls -l $HOME/tmp/mntpoint
 $ cp $HOME/tmp/mntpoint/initrd.img-4.4.0-170-generic ubu16-arm64-initrd.img-4.4.0-170-generic
-$ cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
 $ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.4.0-170-generic ubu16-arm64-vmlinuz-4.4.0-170-generic
 $ sudo chown $(whoami) ubu16-arm64-vmlinuz-4.4.0-170-generic
 $ sudo chmod +r ubu16-arm64-vmlinuz-4.4.0-170-generic
@@ -194,3 +193,32 @@ The command to split the file is:
 $ split -b 1024m ubu16-armhf-hda.qcow2 ubu16-armhf-hda.qcow2-
 ```
 
+### How to extract the kernel and initrd 
+
+For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
+
+- `ubu16-armhf-vmlinuz-4.4.0-170-generic-lpae`
+- `ubu16-armhf-initrd.img-4.4.0-170-generic-lpae`
+
+For those who want to extract these files themselves, below are the
+steps used.
+
+The files can be extracted from the image, by first mounting the
+qcow2 file with `qmu-nbd`, then mounting the first partition as a regular 
+filesystem, and finally copying the files.
+
+```console
+$ cd $HOME/Work/qemu-arm
+
+$ sudo modprobe nbd max_part=8
+$ sudo qemu-nbd --connect=/dev/nbd0 ubu16-armhf-hda.qcow2
+$ sudo fdisk /dev/nbd0 -l
+$ mkdir -p $HOME/tmp/mntpoint
+$ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
+$ ls -l $HOME/tmp/mntpoint
+$ cp $HOME/tmp/mntpoint/initrd.img-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
+$ sudo cp $HOME/tmp/mntpoint/vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
+$ sudo chown $(whoami) ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
+$ sudo chmod +r ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae
+$ sudo chmod a-w ubu16-armhf-*
+```
