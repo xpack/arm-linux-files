@@ -21,8 +21,13 @@ first major release that supported 64-bit Arm devices.
 
 At `uname -a` they identify as:
 
-- `Linux ubu16-arm64 4.4.0-170-generic #199-Ubuntu SMP Thu Nov 14 01:46:18 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux`
-- `Linux ubu16-armhf 4.4.0-170-generic-lpae #199-Ubuntu SMP Thu Nov 14 03:32:37 UTC 2019 armv7l armv7l armv7l GNU/Linux`
+- `Linux ubu16-arm64 4.15.0-72-generic #81~16.04.1-Ubuntu SMP Tue Nov 26 16:31:09 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux`
+- `Linux ubu16-armhf 4.15.0-72-generic-lpae #81~16.04.1-Ubuntu SMP Tue Nov 26 19:06:09 UTC 2019 armv7l armv7l armv7l GNU/Linux`
+
+Please note that the original kernel 4.4 that was distributed
+with Ubuntu 16 is not stable and under 
+heavy loads some aplications crash with strange errors,
+like _Internal compiler error_.
 
 ## Prerequisites
 
@@ -42,7 +47,13 @@ necessary to recompile QEMU form sources.
 In this case the separate folder must be added to the PATH.
 
 ```console
-PATH="$HOME/opt/qemu-4.1.1/bin:$PATH"
+PATH="${HOME}/opt/qemu-4.1.1/bin:${PATH}"
+```
+
+or
+
+```console
+PATH="${HOME}/opt/homebrew/qemu/bin:${PATH}"
 ```
 
 On some distributions there might be a separate `qemu-utils` which
