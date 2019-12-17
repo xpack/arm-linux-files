@@ -65,8 +65,8 @@ During the install, the default selections were used.
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
 	- The following partitions are going to be formatted:
 		- partition #1 of Virtual disk 1 (vda) as ext2
-    		- partition #2 of Virtual disk 1 (vda) as ext4
-    		- partition #5 of Virtual disk 1 (vda) as swap
+		- partition #2 of Virtual disk 1 (vda) as ext4
+		- partition #5 of Virtual disk 1 (vda) as swap
 	- Write the changes to disks: Yes
 - Installation step failed during: Select and install software
 - Select and install software
