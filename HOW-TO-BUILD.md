@@ -34,11 +34,12 @@ were used. You can customise them for your own needs.
 		- partition #2 of Virtual disk 1 (vda) as ext4
 		- partition #5 of Virtual disk 1 (vda) as swap
 	- Write the changes to disks: Yes
-- Installation step failed during: Select and install software
-- Select and install software (retry this step)
+- Installing the base system... (this may take a while)
+- [Installation step failed during: Select and install software (may not happen)]
+- [Select and install software (retry this step)]
 - Manage updates: No automatic updates
 - Software selection
-	- standard system utilities (default in Ubuntu 16, not present in Ubuntu 19)
+	- standard system utilities (not present in Ubuntu 19, default in Ubuntu 16)
 	- OpenSSH server <---
 - Installation step failed during: Select and install software
 - Select and install software (repeat until it completes this step)
