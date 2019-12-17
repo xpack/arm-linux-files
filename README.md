@@ -67,7 +67,7 @@ On macOS, QEMU can be installed via Homebrew.
 $ mkdir -p $HOME/Work/qemu-arm
 ```
 
-## Ubuntu 16.04.6 virtual disks
+## Ubuntu virtual disks
 
 For convenience, ready to use virtual disk images are provided. The files
 are pristine, as they resulted after the initial install, without any
@@ -75,7 +75,21 @@ changes.
 Due to GitHub limitations, the large files are split into several parts,
 and must be reassembled after download.
 
-### The arm64 (64-bit) image
+### How to prepare the images yourself
+
+For those who want to create the images themselves, 
+the steps are documented in the separate
+[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
+file.
+
+### How to extract the kernel and initrd yourself
+
+For those who want to extract these files themselves, 
+the steps are also documented in the separate
+[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
+file.
+
+### The Ubuntu 16 arm64 (64-bit) image
 
 #### Download a ready to use image
 
@@ -95,13 +109,6 @@ $ chmod a-w ubu16-arm64-hda.qcow2-a*
 $ cat ubu16-arm64-hda.qcow2-aa ubu16-arm64-hda.qcow2-ab ubu16-arm64-hda.qcow2-ac >ubu16-arm64-hda.qcow2
 ```
 
-##### How to prepare the image yourself
-
-For those who want to create this image themselves, 
-the steps are documented in the separate
-[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
-file.
-
 #### Download ready to use kernel and initrd
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
@@ -118,13 +125,6 @@ $ curl -L --fail -o ubu16-arm64-vmlinuz-4.15.0-72-generic https://github.com/xpa
 $ curl -L --fail -o ubu16-arm64-initrd.img-4.15.0-72-generic https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-arm64-initrd.img-4.15.0-72-generic
 $ chmod a-w ubu16-arm64-vmlinuz-4.15.0-72-generic ubu16-arm64-initrd.img-4.15.0-72-generic
 ```
-
-##### How to extract the kernel and initrd yourself
-
-For those who want to extract these files themselves, 
-the steps are documented in the separate
-[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
-file.
 
 #### Start the virtual machine
 
@@ -258,13 +258,6 @@ $ chmod a-w ubu16-armhf-hda.qcow2-a*
 $ cat ubu16-armhf-hda.qcow2-aa ubu16-armhf-hda.qcow2-ab ubu16-armhf-hda.qcow2-ac >ubu16-armhf-hda.qcow2
 ```
 
-##### How to prepare the image yourself
-
-For those who want to create this image themselves, 
-the steps are documented in the separate
-[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
-file.
-
 #### Download ready to use kernel and initrd
 
 For 32-bit Arm Ubuntu 16.04.6, the ready to use files are:
@@ -281,13 +274,6 @@ $ curl -L --fail -o ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae https://github.co
 $ curl -L --fail -o ubu16-armhf-initrd.img-4.15.0-72-generic-lpae https://github.com/xpack/arm-linux-files/releases/download/qemu/ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 $ chmod a-w ubu16-armhf-vmlinuz-4.15.0-72-generic-lpae ubu16-armhf-initrd.img-4.15.0-72-generic-lpae
 ```
-
-##### How to extract the kernel and initrd yourself
-
-For those who want to extract these files themselves, 
-the steps are documented in the separate
-[HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
-file.
 
 #### Start the virtual machine
 
