@@ -26,8 +26,8 @@ were used. You can customise them for your own needs.
 - Partition disk
 	- Partitioning method: Guided - use entire disk
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
-	- The following partitions are going to be formatted:                  │
-		- partition #1 of Virtual disk 1 (vda) as ext4                      │
+	- The following partitions are going to be formatted:            
+		- partition #1 of Virtual disk 1 (vda) as ext4            
 		- partition #2 of Virtual disk 1 (vda) as ext4
 	- Note: old Ubuntu 16 will list three partitions:
 		- partition #1 of Virtual disk 1 (vda) as ext2
