@@ -5,12 +5,13 @@ as a template for creating custom images, for example larger ones.
 
 ## Ubuntu install default selections
 
-During the install, the default selections were used. 
+During the install, for these reference images the default selections
+were used. You can customise them for your own needs.
 
 - Language: English
 - Country: United States
 - Hostname: `ubu19-arm64` <--- (`ubu16-arm64`; `ubu16-armhf` for 32-bit)
-- Archive mirror country: United States
+- Archive mirror country: United States <--- you may enter your favourite
 	- us.ports.ubuntu.com
 - HTTP proxy: (none)
 - ... crunching silently for a few minutes, be patient ...
@@ -19,25 +20,28 @@ During the install, the default selections were used.
 - Full name: Primus Adminus
 - Username: `primus/primus` <---
 	- Use weak password: Yes
-	- Encrypt home directory: No
+	- Encrypt home directory: No (present on old Ubuntu 16) 
 - Time zone: Is this time zone correct? No, 
-	- Select your time zone: Eastern
+	- Select your time zone: Eastern <--- you may enter your location
 - Partition disk
 	- Partitioning method: Guided - use entire disk
 	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
-	- The following partitions are going to be formatted:
+	- The following partitions are going to be formatted:                  │
+		- partition #1 of Virtual disk 1 (vda) as ext4                      │
+		- partition #2 of Virtual disk 1 (vda) as ext4
+	- Note: old Ubuntu 16 will list three partitions:
 		- partition #1 of Virtual disk 1 (vda) as ext2
 		- partition #2 of Virtual disk 1 (vda) as ext4
 		- partition #5 of Virtual disk 1 (vda) as swap
 	- Write the changes to disks: Yes
 - Installation step failed during: Select and install software
-- Select and install software
+- Select and install software (retry this step)
 - Manage updates: No automatic updates
 - Software selection
 	- standard system utilities (default in Ubuntu 16, not present in Ubuntu 19)
 	- OpenSSH server <---
 - Installation step failed during: Select and install software
-- Select and install software
+- Select and install software (repeat until it completes this step)
 - Manage updates: No automatic updates
 - Software selection
 	- standard system utilities
