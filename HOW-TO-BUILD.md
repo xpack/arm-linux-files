@@ -3,15 +3,153 @@
 This file documents how the various files were created, and can be used 
 as a template for creating custom images, for example larger ones.
 
-## The arm64 (64-bit) image
+## The arm64 (64-bit) images
 
-### How to prepare the virtual image file 
+### How to prepare the Ubuntu 19 virtual image file 
+
+For 64-bit Arm Ubuntu 19.04, the ready to use file is:
+
+- `ubu19-arm64-hda.qcow2`
+
+For those who want to create this image 
+themselves, below are the steps used.
+To get a more recent kernel, select the HWE folder.
+The image size is 32GB, but can be easily changed to
+any value.
+
+```console
+$ cd $HOME/Work/qemu-arm
+
+$ curl -L --fail -o ubu19-arm64-installer-linux  http://ports.ubuntu.com/ubuntu-ports/dists/focal/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/linux
+$ curl -L --fail -o ubu19-arm64-installer-initrd.gz http://ports.ubuntu.com/ubuntu-ports/dists/focal/main/installer-arm64/current/images/netboot/ubuntu-installer/arm64/initrd.gz
+
+$ qemu-img create -f qcow2 ubu19-arm64-hda.qcow2 32G
+Formatting 'ubu19-arm64-hda.qcow2', fmt=qcow2 size=34359738368 cluster_size=65536 lazy_refcounts=off refcount_bits=16
+
+$ qemu-system-aarch64 -M virt -m 4G  -smp 4 -cpu cortex-a72 \
+-kernel ubu19-arm64-installer-linux \
+-initrd ubu19-arm64-installer-initrd.gz \
+-drive if=none,file=ubu19-arm64-hda.qcow2,format=qcow2,id=hd \
+-device virtio-blk-pci,drive=hd \
+-netdev user,id=armnet \
+-device virtio-net-pci,netdev=armnet \
+-nographic -no-reboot
+
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd083]
+[    0.000000] Linux version 5.3.0-24-generic (buildd@bos02-arm64-031) (gcc version 9.2.1 20191008 (Ubuntu 9.2.1-9ubuntu2)) #26-Ubuntu SMP Thu Nov 14 01:14:25 UTC 2019 (Ubuntu 5.3.0-24.26-generic 5.3.10)
+[    0.000000] Machine model: linux,dummy-virt
+...
+```
+
+During the install, the default selections were used. 
+
+- Language: English
+- Country: United States
+- Hostname: `ubu19-arm64` <--- (`ubu16-arm64`; `ubu16-armhf` for 32-bit)
+- Archive mirror country: United States
+	- us.ports.ubuntu.com
+- HTTP proxy: (none)
+- ... crunching silently for a few minutes, be patient ...
+- Loading additional components
+- ... crunching silently ...
+- Full name: Primus Adminus
+- Username: `primus/primus` <---
+	- Use weak password: Yes
+	- Encrypt home directory: No
+- Time zone: Is this time zone correct? No, 
+	- Select your time zone: Eastern
+- Partition disk
+	- Partitioning method: Guided - use entire disk
+	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
+	- The following partitions are going to be formatted:
+		- partition #1 of Virtual disk 1 (vda) as ext2
+		- partition #2 of Virtual disk 1 (vda) as ext4
+		- partition #5 of Virtual disk 1 (vda) as swap
+	- Write the changes to disks: Yes
+- Installation step failed during: Select and install software
+- Select and install software
+- Manage updates: No automatic updates
+- Software selection
+	- standard system utilities (default in Ubuntu 16, not present in Ubuntu 19)
+	- OpenSSH server <---
+- Installation step failed during: Select and install software
+- Select and install software
+- Manage updates: No automatic updates
+- Software selection
+	- standard system utilities
+	- OpenSSH server <---
+- Installation step failed during: Make the system bootable
+- Continue without boot loader
+
+```
+No boot loader has been installed, either because you chose not to or 
+because your specific architecture doesn't support a boot loader yet. 
+                                                                      
+You will need to boot manually with the /vmlinuz kernel on partition  
+/dev/vda1 and root=/dev/vda2 passed as a kernel argument.             
+```
+
+- Is the system clock set to UTC: Yes
+- Installation complete
+
+As it can be seen, the procedure issued several errors, but retrying
+managed to recover, except the step to install the bootloader, not
+supported on Arm in this version, thus, when running the image under
+QEMU, the kernel and initrd files must be provided separatelly, as 
+command line options.
+
+Comput the SHA 256 sum.
+
+```
+$ shasum -a 256 ubu19-arm64-hda.qcow2
+9467cb5edce327132b4467bc55f32998551e7288d9b5d62478c0709ad3851354
+```
+
+The resulting file is larger than 2 GB and must be split into separate
+parts to be published on GitHub:
+
+```console
+$ split -b 1024m ubu19-arm64-hda.qcow2 ubu19-arm64-hda.qcow2-
+```
+
+### How to extract the kernel and initrd 
+
+For 64-bit Arm Ubuntu 19.04, the ready to use files are:
+
+- `ubu19-arm64-vmlinuz-5.3.0-24-generic`
+- `ubu19-arm64-initrd.img-5.3.0-24-generic`
+
+For those who want to extract these files themselves, below are the
+steps used.
+
+The files can be extracted from the image, by first mounting the
+qcow2 file with `qmu-nbd`, then mounting the first partition as a regular 
+filesystem, and finally copying the files.
+
+```console
+$ cd $HOME/Work/qemu-arm
+
+$ sudo modprobe nbd max_part=8
+$ sudo qemu-nbd --connect=/dev/nbd0 ubu19-arm64-hda.qcow2
+$ sudo fdisk /dev/nbd0 -l
+$ mkdir -p $HOME/tmp/mntpoint
+$ sudo mount /dev/nbd0p1 $HOME/tmp/mntpoint
+$ ls -l $HOME/tmp/mntpoint
+$ sudo cp $HOME/tmp/mntpoint/vmlinuz-5.3.0-24-generic ubu19-arm64-vmlinuz-5.3.0-24-generic
+$ cp $HOME/tmp/mntpoint/initrd.img-5.3.0-24-generic ubu19-arm64-initrd.img-5.3.0-24-generic
+$ sudo chown $(whoami) ubu19-arm64-vmlinuz-5.3.0-24-generic
+$ sudo chmod +r ubu19-arm64-vmlinuz-5.3.0-24-generic
+$ sudo chmod a-w ubu19-arm64-vmlinuz-5.3.0-24-generic ubu19-arm64-initrd.img-5.3.0-24-generic
+$ sudo umount $HOME/tmp/mntpoint
+$ sudo qemu-nbd --disconnect /dev/nbd0
+$ sudo rmmod nbd
+```
+
+### How to prepare the Ubuntu 16 virtual image file 
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use file is:
 
 - `ubu16-arm64-hda.qcow2`
-
-The SHA256 sum is `3e02ed43a4c727e54ecf75e81170f1e776985864637cb23a15dc02916124e5cc`.
 
 For those who want to create this image 
 themselves, below are the steps used.
@@ -45,60 +183,15 @@ $ qemu-system-aarch64 -M virt -m 8G  -smp 4 -cpu cortex-a72 \
 
 During the install, the default selections were used. 
 
-- Language: English
-- Country: United States
-- Hostname: `ubu16-arm64` <--- (`ubu16-armhf` for 32-bit)
-- Archive mirror country: United States
-	- us.ports.ubuntu.com
-- HTTP proxy: (none)
-- ... crunching silently for a few minutes, be patient ...
-- Loading additional components
-- ... crunching silently ...
-- Full name: Primus Adminus
-- Username: `primus/primus` <---
-	- Use weak password: Yes
-	- Encrypt home directory: No
-- Time zone: Is this time zone correct? No, 
-	- Select your time zone: Eastern
-- Partition disk
-	- Partitioning method: Guided - use entire disk
-	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
-	- The following partitions are going to be formatted:
-		- partition #1 of Virtual disk 1 (vda) as ext2
-		- partition #2 of Virtual disk 1 (vda) as ext4
-		- partition #5 of Virtual disk 1 (vda) as swap
-	- Write the changes to disks: Yes
-- Installation step failed during: Select and install software
-- Select and install software
-- Manage updates: No automatic updates
-- Software selection
-	- standard system utilities
-	- OpenSSH server <---
-- Installation step failed during: Select and install software
-- Select and install software
-- Manage updates: No automatic updates
-- Software selection
-	- standard system utilities
-	- OpenSSH server <---
-- Installation step failed during: Make the system bootable
-- Continue without boot loader
+During the install, the default selections were used. The steps are the
+same as for the previous 64-bit image, except the hostname, which is `ubu16-arm64`.
+
+Compute the SHA 256 sum.
 
 ```
-No boot loader has been installed, either because you chose not to or 
-because your specific architecture doesn't support a boot loader yet. 
-                                                                      
-You will need to boot manually with the /vmlinuz kernel on partition  
-/dev/vda1 and root=/dev/vda2 passed as a kernel argument.             
+$ shasum -a 256 ubu16-arm64-hda.qcow2
+3e02ed43a4c727e54ecf75e81170f1e776985864637cb23a15dc02916124e5cc
 ```
-
-- Is the system clock set to UTC: Yes
-- Installation complete
-
-As it can be seen, the procedure issued several errors, but retrying
-managed to recover, except the step to install the bootloader, not
-supported on Arm in this version, thus, when running the image under
-QEMU, the kernel and initrd files must be provided separatelly, as 
-command line options.
 
 The resulting file is larger than 2 GB and must be split into separate
 parts to be published on GitHub:
@@ -111,8 +204,8 @@ $ split -b 1024m ubu16-arm64-hda.qcow2 ubu16-arm64-hda.qcow2-
 
 For 64-bit Arm Ubuntu 16.04.6, the ready to use files are:
 
-- `ubu16-arm64-initrd.img-4.4.0-170-generic`
-- `ubu16-arm64-vmlinuz-4.4.0-170-generic`
+- `ubu16-arm64-initrd.img-4.15.0-72-generic`
+- `ubu16-arm64-vmlinuz-4.15.0-72-generic`
 
 For those who want to extract these files themselves, below are the
 steps used.
@@ -140,7 +233,7 @@ $ sudo qemu-nbd --disconnect /dev/nbd0
 $ sudo rmmod nbd
 ```
 
-## The armhf (32-bit) image
+## The armhf (32-bit) image(s)
 
 ### How to prepare the virtual image file 
 
