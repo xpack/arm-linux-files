@@ -89,6 +89,53 @@ the steps are also documented in the separate
 [HOW-TO-BUILD](https://github.com/xpack/arm-linux-files/blob/master/HOW-TO-BUILD.md)
 file.
 
+### Further customisations
+
+These steps should be performed after the image is functional,
+but are documented here, before all specific versions install
+sptes, since they apply to all versions.
+
+The images, as they are published, are as generic as possible.
+You can continue to use them as is, or further customise them.
+
+For example you can continue to use the initial user, or, if 
+you prefer, you can add your own user and configure local settings.
+
+```console
+$ sudo adduser ilg
+$ sudo usermod -aG sudo ilg
+
+$ sudo dpkg-reconfigure tzdata
+$ cat /etc/timezone
+```
+
+Preferably add the locale settings to the shell `.profile`:
+
+```console
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+```
+
+For long tasks it is also recommended to start them inside a `screen` session:
+
+```console
+$ sudo apt install -y screen
+```
+
+#### Power down
+
+To power down the virtual machine, shutdown as usual:
+
+```console
+$ sudo poweroff
+```
+
+which is a shorcut for `shutdown -P now`.
+
+In QEMU it is also possible to use Ctrl-A C, which will bring
+the QEMU prompt, and issue the `system_powerdown` command.
+
 ### The Ubuntu 16 arm64 (64-bit) image
 
 #### Download a ready to use image
@@ -193,50 +240,11 @@ primus@ubu16-arm64:~$ sudo poweroff
 
 ```
 
-You can continue to use
-this initial user, or, if you prefer, you can add your own user
-and configure local settings.
-
-```console
-$ sudo adduser ilg
-$ sudo usermod -aG sudo ilg
-
-$ sudo dpkg-reconfigure tzdata
-$ cat /etc/timezone
-```
-
-For long tasks it is also recommended to start them inside a `screen` session:
-
-```console
-$ sudo apt install -y screen
-```
-
 Now it is also possible to remotely login as the new user.
 
 ```console
 $ ssh ilg@ilg-xbb-linux.local -p 30064
 ```
-
-Preferably add the locale settings to the shell `.profile`:
-
-```console
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-```
-
-#### Power down
-
-To power down the virtual machine, shutdown as usual:
-
-```console
-$ sudo poweroff
-```
-
-which is a shorcut for `shutdown -P now`.
-
-In QEMU it is also possible to use Ctrl-A C, which will bring
-the QEMU prompt, and issue the `system_powerdown` command.
 
 ### The armhf (32-bit) image
 
@@ -344,50 +352,11 @@ primus@ubu16-armhf:~$ sudo poweroff
 [  135.192446] reboot: Power down
 ```
 
-You can continue to use
-this initial user, or, if you prefer, you can add your own user
-and configure local settings.
-
-```console
-$ sudo adduser ilg
-$ sudo usermod -aG sudo ilg
-
-$ sudo dpkg-reconfigure tzdata
-$ cat /etc/timezone
-```
-
-For long tasks it is also recommended to start them inside a `screen` session:
-
-```console
-$ sudo apt install -y screen
-```
-
 Now it is also possible to remotely login as the new user.
 
 ```console
 $ ssh ilg@ilg-xbb-linux.local -p 30032
 ```
-
-Preferably add the locale settings to the shell `.profile`:
-
-```console
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-```
-
-#### Power down
-
-To power down the virtual machine, shutdown as usual:
-
-```console
-$ sudo poweroff
-```
-
-which is a shorcut for `shutdown -P now`.
-
-In QEMU it is also possible to use Ctrl-A C, which will bring
-the QEMU prompt, and issue the `system_powerdown` command.
 
 ## Comments
 
