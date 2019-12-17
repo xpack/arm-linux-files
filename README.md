@@ -93,7 +93,7 @@ file.
 
 These steps should be performed after the image is functional,
 but are documented here, before all specific versions install
-sptes, since they apply to all versions.
+steps, since they apply to all versions.
 
 The images, as they are published, are as generic as possible.
 You can continue to use them as is, or further customise them.
