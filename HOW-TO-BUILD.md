@@ -10,7 +10,7 @@ were used. You can customise them for your own needs.
 
 - Language: English
 - Country: United States
-- Hostname: `ubu19-arm64` <--- (`ubu16-arm64`; `ubu16-armhf` for 32-bit)
+- Hostname: `ubuNN-arm64` <--- (`ubu18-arm64`, `ubu16-arm64`; `ubu16-armhf` for 32-bit)
 - Archive mirror country: United States <--- you may enter your favourite
 	- us.ports.ubuntu.com
 - HTTP proxy: (none)
@@ -25,9 +25,9 @@ were used. You can customise them for your own needs.
 	- Select your time zone: Eastern <--- you may enter your location
 - Partition disk
 	- Partitioning method: Guided - use entire disk
-	- Select disk to partition: Virtual disk 1 (vds) - 34.4 GB Virtio Block Device
+	- Select disk to partition: Virtual disk 1 (vda) - 34.4 GB Virtio Block Device
 	- The following partitions are going to be formatted:            
-		- partition #1 of Virtual disk 1 (vda) as ext4            
+		- partition #1 of Virtual disk 1 (vda) as ESP            
 		- partition #2 of Virtual disk 1 (vda) as ext4
 	- Note: old Ubuntu 16 will list three partitions:
 		- partition #1 of Virtual disk 1 (vda) as ext2
@@ -67,7 +67,90 @@ supported on Arm in this version, thus, when running the image under
 QEMU, the kernel and initrd files must be provided separatelly, as 
 command line options.
 
+## QEMU EFI
+
+To simplify usage, it is possible to configure QEMU to use an EFI monitor,
+which will handle the boot steps, and there is no need to explicitly
+specify the kernel and initrd files.
+
+The solution is based on the 
+[QEMU-EFI](http://snapshots.linaro.org/components/kernel/leg-virt-tianocore-edk2-upstream/latest/QEMU-AARCH64/)
+from Linaro.
+
+The solution is inspired from 
+[Running an ISO installer image for arm64 (AArch64) using QEMU and KVM](http://www.redfelineninja.org.uk/daniel/2018/02/running-an-iso-installer-image-for-arm64-aarch64-using-qemu-and-kvm/)
+
+## Separate kernel and initrd files
+
+The initial way of starting QEMU was by passing explicit
+files with the kernel and the initrd.
+
+This method is simple to use, but requires extracting the 
+two files from the image after the install completes.
+
+It worked well with Ubuntu 16, and was inspired by:
+
+- https://translatedcode.wordpress.com/2017/07/24/installing-debian-on-qemus-64-bit-arm-virt-board/
+- https://translatedcode.wordpress.com/2016/11/03/installing-debian-on-qemus-32-bit-arm-virt-board/
+
+However the install process with Ubuntu 18 or later failed
+to create the initrd file in the `/boot` folder, and the more
+automated EFI method was used.
+
 ## The arm64 (64-bit) images
+
+### How to prepare the Ubuntu 18 virtual image file 
+
+For 64-bit Arm Ubuntu 18.04, the ready to use file is:
+
+- `ubu18-arm64-efi-hda.qcow2`
+
+For those who want to create this image 
+themselves, below are the steps used.
+To get a more recent kernel, select the HWE folder.
+The image size is 32GB, but can be easily changed to
+any value.
+
+```console
+$ curl -L --fail -o aarch64-QEMU_EFI.img.gz http://snapshots.linaro.org/components/kernel/leg-virt-tianocore-edk2-upstream/latest/QEMU-AARCH64/RELEASE_GCC5/QEMU_EFI.img.gz
+$ gunzip aarch64-QEMU_EFI.img.gz
+
+$ curl -L --fail -o  ubu18-arm64-mini.iso http://ports.ubuntu.com/dists/bionic-updates/main/installer-arm64/current/images/hwe-netboot/mini.iso
+
+$ qemu-img create -f qcow2 ubu18-arm64-efi-hda.qcow2 32G
+
+$ qemu-system-aarch64 -cpu host -M virt -m 4G -smp 4 -cpu cortex-a72 \
+-drive if=pflash,format=raw,file=aarch64-QEMU_EFI.img \
+-drive if=none,format=qcow2,id=hd,file=ubu18-arm64-efi-hda.qcow2 \
+-device virtio-blk-pci,drive=hd \
+-drive if=none,format=raw,id=cd,file=ubu18-arm64-mini.iso \
+-device virtio-blk-pci,drive=cd \
+-netdev user,id=armnet \
+-device virtio-net-pci,netdev=armnet \
+-nographic \
+-no-reboot \
+
+[execution continues with the EFI monitor, which loads the kernel and starts the install...]
+
+$ shasum -a 256 ubu18-arm64-efi-hda.qcow2
+39de964576207c62922be8827446f5eeda5814a55b609b851c178dab511c95b2
+
+$ split -b 1024m ubu18-arm64-efi-hda.qcow2 ubu18-arm64-efi-hda.qcow2-
+```
+
+The original page also mentions a `varstore`. It can be created as:
+
+```console
+$ qemu-img create -f qcow2 ubu18-arm64-efi-varstore.qcow2 64M
+```
+
+and added to QEMU with:
+
+```
+-drive if=pflash,format=qcow2,file=ubu18-arm64-efi-varstore.qcow2 \
+```
+
+(but don't ask what this is good for...)
 
 ### How to prepare the Ubuntu 16 virtual image file 
 
