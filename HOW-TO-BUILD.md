@@ -47,6 +47,15 @@ were used. You can customise them for your own needs.
 - Software selection
 	- standard system utilities
 	- OpenSSH server <---
+- Is the system clock set to UTC: Yes
+- Installation complete
+
+As it can be seen, the procedure issued several errors, but retrying
+manages to recover.
+
+When started with separate kernel and initrd, on Ubuntu 16, the install
+also fails to write the bootloader:
+
 - Installation step failed during: Make the system bootable
 - Continue without boot loader
 
@@ -58,14 +67,6 @@ You will need to boot manually with the /vmlinuz kernel on partition
 /dev/vda1 and root=/dev/vda2 passed as a kernel argument.             
 ```
 
-- Is the system clock set to UTC: Yes
-- Installation complete
-
-As it can be seen, the procedure issued several errors, but retrying
-managed to recover, except the step to install the bootloader, not
-supported on Arm in this version, thus, when running the image under
-QEMU, the kernel and initrd files must be provided separatelly, as 
-command line options.
 
 ## QEMU EFI
 
@@ -133,10 +134,26 @@ $ qemu-system-aarch64 -cpu host -M virt -m 4G -smp 4 -cpu cortex-a72 \
 [execution continues with the EFI monitor, which loads the kernel and starts the install...]
 
 $ shasum -a 256 ubu18-arm64-efi-hda.qcow2
-39de964576207c62922be8827446f5eeda5814a55b609b851c178dab511c95b2
+d0e35954a04003281e676b981ea73470dfe5c25964c10f37582a968ef32ac44e
 
 $ split -b 1024m ubu18-arm64-efi-hda.qcow2 ubu18-arm64-efi-hda.qcow2-
 ```
+
+The result is:
+
+```console
+$ ls -l
+total 15750240
+-rw-r--r--  1 ilg  staff    67108864 Dec 18 18:07 aarch64-QEMU_EFI.img
+-rw-r--r--  1 ilg  staff  3943497728 Dec 18 20:00 ubu18-arm64-efi-hda.qcow2
+-rw-r--r--  1 ilg  staff  1073741824 Dec 18 20:01 ubu18-arm64-efi-hda.qcow2-aa
+-rw-r--r--  1 ilg  staff  1073741824 Dec 18 20:01 ubu18-arm64-efi-hda.qcow2-ab
+-rw-r--r--  1 ilg  staff  1073741824 Dec 18 20:01 ubu18-arm64-efi-hda.qcow2-ac
+-rw-r--r--  1 ilg  staff   722272256 Dec 18 20:01 ubu18-arm64-efi-hda.qcow2-ad
+-rw-r--r--  1 ilg  staff    64446464 Dec 18 18:07 ubu18-arm64-mini.iso
+```
+
+The 4 parts were published on GitHub.
 
 The original page also mentions a `varstore`. It can be created as:
 
