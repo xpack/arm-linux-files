@@ -39,19 +39,23 @@ were used. You can customise them for your own needs.
 - [Select and install software (retry this step)]
 - Manage updates: No automatic updates
 - Software selection
-	- standard system utilities (not present in Ubuntu 19, default in Ubuntu 16)
+	- standard system utilities (not present in Ubuntu 18, default in Ubuntu 16)
 	- OpenSSH server <---
+	- Basic Ubuntu server <--- (not present in Ubuntu 16)
 - Installation step failed during: Select and install software
 - Select and install software (repeat until it completes this step)
 - Manage updates: No automatic updates
 - Software selection
 	- standard system utilities
 	- OpenSSH server <---
+	- Basic Ubuntu server <--- (not present in Ubuntu 16)
 - Is the system clock set to UTC: Yes
 - Installation complete
 
 As it can be seen, the procedure issued several errors, but retrying
 manages to recover.
+
+### Make the system bootable
 
 When started with separate kernel and initrd, on Ubuntu 16, the install
 also fails to write the bootloader:
@@ -134,7 +138,7 @@ $ qemu-system-aarch64 -cpu host -M virt -m 4G -smp 4 -cpu cortex-a72 \
 [execution continues with the EFI monitor, which loads the kernel and starts the install...]
 
 $ shasum -a 256 ubu18-arm64-efi-hda.qcow2
-d0e35954a04003281e676b981ea73470dfe5c25964c10f37582a968ef32ac44e
+79b6138ccc49ba83cd7d726633d15cb5a8e8084c54753f7c6996e7d49df9497a
 
 $ split -b 1024m ubu18-arm64-efi-hda.qcow2 ubu18-arm64-efi-hda.qcow2-
 ```
