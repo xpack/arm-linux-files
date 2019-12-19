@@ -72,16 +72,16 @@ $ mkdir -p $HOME/opt/qemu-arm-vms
 
 ## Ubuntu cloud images
 
-Ubuntu makes official images to be used in cloud environemnts,
-and these images can also be directly used in QEMU.
+Ubuntu makes official images to be used in cloud environments,
+and these images can also be used directly by QEMU.
 
 - https://cloud-images.ubuntu.com/
 
-This saves quite some time to generate local instances of the 
+This saves quite a lot of time to generate local instances of the 
 images, and is the prefered method.
 
 The Ubuntu cloud images have a default user called `ubuntu`,
-but without password it is not possible to log to the machine.
+but no password, and it is not possible to log to the machine.
 
 The password must be paased as a separate user date file, created
 with the following sequence
@@ -103,7 +103,8 @@ The `cloud-localds` tool can be installed on Ubuntu with:
 $ sudo apt install --yes cloud-utils
 ```
 
-This file can be downloaded from the releases.
+For convenience, this file can also be downloaded from the 
+releases section.
 
 There are other small trimmings that can be done:
 
@@ -184,7 +185,7 @@ the QEMU prompt, and issue the `system_powerdown` command.
 
 ## Ubuntu virtual disks
 
-### The Ubuntu 18 arm64 (64-bit) cloud image
+### Ubuntu 18 arm64 (64-bit) cloud image
 
 The Ubuntu system virtual image can be downloaded directly from 
 Ubuntu.
@@ -262,7 +263,7 @@ logout
 Ubuntu 18.04.3 LTS ubu18-arm64 ttyAMA0
 
 ubu18-arm64 login: 
-
+...
 ```
 
 Subsequent restarts will be less verbose and do not start the 
@@ -275,7 +276,7 @@ user ubuntu via the port forwarder:
 $ ssh ubuntu@ilg-xbb-linux.local -p 30064
 ```
 
-### The Ubuntu 16 arm64 (64-bit) image
+### Ubuntu 16 arm64 (64-bit) image
 
 TODO: update to cloud image
 
