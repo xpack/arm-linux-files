@@ -62,13 +62,60 @@ needs to be installed with the package manager.
 
 On macOS, QEMU can be installed via Homebrew.
 
-### A work folder
+### An install folder
+
+Any place is fine, but somewhere in the HOME folder is better, for example:
 
 ```console
 $ mkdir -p $HOME/opt/qemu-arm-vms
 ```
 
-## Ubuntu virtual disks
+## Ubuntu cloud images
+
+Ubuntu makes official images to be used in cloud environemnts,
+and these images can also be directly used in QEMU.
+
+- https://cloud-images.ubuntu.com/
+
+This saves quite some time to generate local instances of the 
+images, and is the prefered method.
+
+The Ubuntu cloud images have a default user called `ubuntu`,
+but without password it is not possible to log to the machine.
+
+The password must be paased as a separate user date file, created
+with the following sequence
+
+```console
+cat >my-ubuntu-user-data-source <<EOF
+#cloud-config
+password: ubuntu
+chpasswd: { expire: False }
+ssh_pwauth: True
+EOF
+ 
+$ cloud-localds -v my-ubuntu-user-data.raw my-ubuntu-user-data-source
+```
+
+The `cloud-localds` tool can be installed on Ubuntu with:
+
+```console
+$ sudo apt install --yes cloud-utils
+```
+
+This file can be downloaded from the releases.
+
+There are other small trimmings that can be done:
+
+```console
+$ touch .hushlogin
+$ sudo touch /etc/cloud/cloud-init.disabled
+```
+
+## Ubuntu home-made virtual disks
+
+Before cloud images was discoverd, it was common to create the
+virtual images in house, but this process takes quite some time.
 
 For convenience, ready to use virtual disk images are provided. The files
 are pristine, as they resulted after the initial install, without any
@@ -135,66 +182,26 @@ $ sudo shutdown -P now
 In QEMU it is also possible to use Ctrl-A C, which will bring
 the QEMU prompt, and issue the `system_powerdown` command.
 
-#### Ubuntu cloud images
-
-Ubuntu makes offcial images to be used in cloud environemnts,
-and these images can also be directly used in QEMU.
-
-- https://cloud-images.ubuntu.com/
-
-This saves quite some time to generate local instances of the 
-images, and was prefered for the main images.
-
-The Ubuntu cloud images have a default user called `ubuntu`,
-but without password it is not possible to log to the machine.
-
-The password must be paased as a separate user date file, created
-with the following sequence
-
-```console
-cat >my-ubuntu-user-data-source <<EOF
-#cloud-config
-password: ubuntu
-chpasswd: { expire: False }
-ssh_pwauth: True
-EOF
- 
-$ cloud-localds -v my-ubuntu-user-data.raw my-ubuntu-user-data-source
-```
-
-The `cloud-localds` tool can be installed on Ubuntu with:
-
-```console
-$ sudo apt install --yes cloud-utils
-```
-
-This file can be downloaded from the releases.
-
-There are other small trimmings that can be done:
-
-```console
-$ touch .hushlogin
-$ sudo touch /etc/cloud/cloud-init.disabled
-```
+## Ubuntu virtual disks
 
 ### The Ubuntu 18 arm64 (64-bit) cloud image
 
-The Ubuntu system virtual image is downloaded directly from Ubuntu.
+The Ubuntu system virtual image can be downloaded directly from 
+Ubuntu.
 
 Apart from the image itself, there are also several small files 
 that need to be made available.
 
 - the EFI raw image, is the monitor that identifies the kernel 
 and the initrd and boots the system; it must be 64 MB long
-- the EFI variable raw iamge, is the place where EFI can store 
+- the EFI variable raw image, is the place where EFI can store 
 different setting; it must be 64 MB long
-- the cloud image user data raw image, where different settings 
-are passed to the system
-- the manifest file is not really needed by QEMU, it is downloaded 
-for convenience, to know what packages are available
+- the cloud user data raw image, where different settings 
+are passed to the generic cloud image (like passwords)
+- the manifest file; it is not really needed by QEMU, it is 
+downloaded for convenience, to know what packages are available
 
-The first two must be present in this order as `pflash` drives.
-
+The first two must be passed to QEMU in this order as `pflash` drives.
 
 ```console
 $ cd $HOME/opt-qemu-vms
@@ -261,7 +268,16 @@ ubu18-arm64 login:
 Subsequent restarts will be less verbose and do not start the 
 cloud services.
 
+With these options it is also possible to remotely login as 
+user ubuntu via the port forwarder:
+
+```console
+$ ssh ubuntu@ilg-xbb-linux.local -p 30064
+```
+
 ### The Ubuntu 16 arm64 (64-bit) image
+
+TODO: update to cloud image
 
 #### Download a ready to use home-made image
 
@@ -373,6 +389,8 @@ $ ssh ilg@ilg-xbb-linux.local -p 30064
 ```
 
 ### The armhf (32-bit) image
+
+TODO: update to cloud image
 
 #### Download a ready to use home-made image
 
