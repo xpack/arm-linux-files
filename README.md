@@ -21,6 +21,7 @@ first major release that supported 64-bit Arm devices.
 
 At `uname -a` they identify as:
 
+- `Linux ubu18-arm64 4.15.0-72-generic #81-Ubuntu SMP Tue Nov 26 12:21:09 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux`
 - `Linux ubu16-arm64 4.15.0-72-generic #81~16.04.1-Ubuntu SMP Tue Nov 26 16:31:09 UTC 2019 aarch64 aarch64 aarch64 GNU/Linux`
 - `Linux ubu16-armhf 4.15.0-72-generic-lpae #81~16.04.1-Ubuntu SMP Tue Nov 26 19:06:09 UTC 2019 armv7l armv7l armv7l GNU/Linux`
 
@@ -57,14 +58,14 @@ PATH="${HOME}/opt/homebrew/qemu/bin:${PATH}"
 ```
 
 On some distributions there might be a separate `qemu-utils` which
-needs to be installed.
+needs to be installed with the package manager.
 
 On macOS, QEMU can be installed via Homebrew.
 
 ### A work folder
 
 ```console
-$ mkdir -p $HOME/Work/qemu-arm
+$ mkdir -p $HOME/opt/qemu-arm-vms
 ```
 
 ## Ubuntu virtual disks
@@ -128,21 +129,146 @@ $ sudo apt install -y screen
 To power down the virtual machine, shutdown as usual:
 
 ```console
-$ sudo poweroff
+$ sudo shutdown -P now
 ```
-
-which is a shorcut for `shutdown -P now`.
 
 In QEMU it is also possible to use Ctrl-A C, which will bring
 the QEMU prompt, and issue the `system_powerdown` command.
 
+#### Ubuntu cloud images
+
+Ubuntu makes offcial images to be used in cloud environemnts,
+and these images can also be directly used in QEMU.
+
+- https://cloud-images.ubuntu.com/
+
+This saves quite some time to generate local instances of the 
+images, and was prefered for the main images.
+
+The Ubuntu cloud images have a default user called `ubuntu`,
+but without password it is not possible to log to the machine.
+
+The password must be paased as a separate user date file, created
+with the following sequence
+
+```console
+cat >my-ubuntu-user-data-source <<EOF
+#cloud-config
+password: ubuntu
+chpasswd: { expire: False }
+ssh_pwauth: True
+EOF
+ 
+$ cloud-localds -v my-ubuntu-user-data.raw my-ubuntu-user-data-source
+```
+
+The `cloud-localds` tool can be installed on Ubuntu with:
+
+```console
+$ sudo apt install --yes cloud-utils
+```
+
+This file can be downloaded from the releases.
+
+There are other small trimmings that can be done:
+
+```console
+$ touch .hushlogin
+$ sudo touch /etc/cloud/cloud-init.disabled
+```
+
+### The Ubuntu 18 arm64 (64-bit) cloud image
+
+The Ubuntu system virtual image is downloaded directly from Ubuntu.
+
+Apart from the image itself, there are also several small files 
+that need to be made available.
+
+- the EFI raw image, is the monitor that identifies the kernel 
+and the initrd and boots the system; it must be 64 MB long
+- the EFI variable raw iamge, is the place where EFI can store 
+different setting; it must be 64 MB long
+- the cloud image user data raw image, where different settings 
+are passed to the system
+- the manifest file is not really needed by QEMU, it is downloaded 
+for convenience, to know what packages are available
+
+The first two must be present in this order as `pflash` drives.
+
+
+```console
+$ cd $HOME/opt-qemu-vms
+
+$ curl -L --fail -o ubu18-bionic-server-cloudimg-arm64.gcow2 https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.img
+$ curl -L --fail -o ubu18-bionic-server-cloudimg-arm64.manifest https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.manifest
+
+$ curl -L --fail -o aarch64-QEMU_EFI.fd http://snapshots.linaro.org/components/kernel/leg-virt-tianocore-edk2-upstream/latest/QEMU-AARCH64/RELEASE_GCC5/QEMU_EFI.fd
+
+$ curl -L --fail -o my-ubuntu-user-data.raw https://github.com/xpack/arm-linux-files/releases/download/qemu/my-ubuntu-user-data.raw
+
+$ dd if=/dev/zero of=aarch-qemu-efi.raw bs=1m count=64
+$ dd if=aarch64-QEMU_EFI.fd of=aarch-qemu-efi.raw conv=notrunc
+
+$ dd if=/dev/zero of=my-efi-vars.raw bs=1m count=64
+
+$ qemu-system-aarch64 -cpu host -M virt -m 4G -smp 4 -cpu cortex-a72 \
+-drive if=pflash,format=raw,file=aarch-qemu-efi.raw \
+-drive if=pflash,format=raw,file=my-efi-vars.raw \
+-drive if=none,format=qcow2,id=hd,file=ubu18-bionic-server-cloudimg-arm64.gcow2 \
+-device virtio-blk-pci,drive=hd \
+-drive format=raw,file=my-ubuntu-user-data.raw \
+-netdev user,id=net0,hostfwd=tcp::30064-:22 \
+-device virtio-net-pci,netdev=net0 \
+-nographic \
+
+BdsDxe: failed to load Boot0001 "UEFI Misc Device" from VenHw(93E34C7E-B50E-11DF-9223-2443DFD72085,00): Not Found
+BdsDxe: loading Boot0002 "UEFI Misc Device 2" from PciRoot(0x0)/Pci(0x1,0x0)
+BdsDxe: starting Boot0002 "UEFI Misc Device 2" from PciRoot(0x0)/Pci(0x1,0x0)
+error: no suitable video mode found.
+error: no such device: root.
+
+Press any key to continue...
+[    2.120620] Couldn't get size: 0x800000000000000e
+[    2.121182] MODSIGN: Couldn't get UEFI db list
+[    2.121378] Couldn't get size: 0x800000000000000e
+[    2.121588] Couldn't get size: 0x800000000000000e
+-.mount
+ufw.service
+dev-hugepages.mount
+dev-mqueue.mount
+sys-kernel-debug.mount
+...
+systemd-user-sessions.service
+systemd-logind.service
+unattended-upgrades.service
+
+Ubuntu 18.04.3 LTS ubuntu ttyAMA0
+
+ubuntu login: ubuntu
+Password: ubuntu
+ubuntu@ubuntu:~$ sudo hostname ubu18-arm64
+ubuntu@ubuntu:~$ touch .hushlogin
+ubuntu@ubuntu:~$ sudo touch /etc/cloud/cloud-init.disabled
+exit
+logout
+
+Ubuntu 18.04.3 LTS ubu18-arm64 ttyAMA0
+
+ubu18-arm64 login: 
+
+```
+
+Subsequent restarts will be less verbose and do not start the 
+cloud services.
+
 ### The Ubuntu 16 arm64 (64-bit) image
 
-#### Download a ready to use image
+#### Download a ready to use home-made image
 
 For 64-bit Arm Ubuntu 16.04.6, the image is:
 
-- `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and must be assembled from 3 parts.
+- `ubu16-arm64-hda.qcow2`; it is about 2.4GB large and must be 
+assembled from 3 parts.
 
 The commands to download and reassemble are:
 
@@ -248,7 +374,7 @@ $ ssh ilg@ilg-xbb-linux.local -p 30064
 
 ### The armhf (32-bit) image
 
-#### Download a ready to use image
+#### Download a ready to use home-made image
 
 For 32-bit Arm Ubuntu 16.04.6, the image is:
 
