@@ -255,6 +255,7 @@ Ubuntu 18.04.3 LTS ubuntu ttyAMA0
 ubuntu login: ubuntu
 Password: ubuntu
 ubuntu@ubuntu:~$ sudo hostname ubu18-arm64
+ubuntu@ubuntu:~$ sudo bash -c 'echo "ubu18-arm64" >/etc/hostname'
 ubuntu@ubuntu:~$ touch .hushlogin
 ubuntu@ubuntu:~$ sudo touch /etc/cloud/cloud-init.disabled
 exit
