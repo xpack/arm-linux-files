@@ -83,7 +83,7 @@ images, and is the prefered method.
 The Ubuntu cloud images have a default user called `ubuntu`,
 but no password, and it is not possible to log to the machine.
 
-The password must be paased as a separate user date file, created
+The password must be passed as a separate user date file, created
 with the following sequence
 
 ```console
