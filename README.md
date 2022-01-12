@@ -227,7 +227,7 @@ $ qemu-system-aarch64 -cpu host -M virt -m 4G -smp 4 -cpu cortex-a72 \
 -drive format=raw,file=my-ubuntu-user-data.raw \
 -netdev user,id=net0,hostfwd=tcp::30064-:22 \
 -device virtio-net-pci,netdev=net0 \
--nographic \
+-nographic
 
 BdsDxe: failed to load Boot0001 "UEFI Misc Device" from VenHw(93E34C7E-B50E-11DF-9223-2443DFD72085,00): Not Found
 BdsDxe: loading Boot0002 "UEFI Misc Device 2" from PciRoot(0x0)/Pci(0x1,0x0)
@@ -258,7 +258,7 @@ ubuntu@ubuntu:~$ sudo hostname ubu18-arm64
 ubuntu@ubuntu:~$ sudo bash -c 'echo "ubu18-arm64" >/etc/hostname'
 ubuntu@ubuntu:~$ touch .hushlogin
 ubuntu@ubuntu:~$ sudo touch /etc/cloud/cloud-init.disabled
-exit
+ubuntu@ubuntu:~$ exit
 logout
 
 Ubuntu 18.04.3 LTS ubu18-arm64 ttyAMA0
@@ -269,6 +269,10 @@ ubu18-arm64 login:
 
 Subsequent restarts will be less verbose and do not start the 
 cloud services.
+
+```console
+$ sudo shutdown -P now
+```
 
 With these options it is also possible to remotely login as 
 user ubuntu via the port forwarder:
