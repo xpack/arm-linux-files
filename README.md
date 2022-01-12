@@ -106,7 +106,7 @@ $ sudo apt install --yes cloud-utils
 For convenience, this file can also be downloaded from the 
 releases section.
 
-There are other small trimmings that can be done:
+There are other small trimmings that can be done after logging in to the virtual machine:
 
 ```console
 $ touch .hushlogin
