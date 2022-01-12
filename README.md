@@ -205,7 +205,7 @@ downloaded for convenience, to know what packages are available
 The first two must be passed to QEMU in this order as `pflash` drives.
 
 ```console
-$ cd $HOME/opt-qemu-vms
+$ mkdir -p $HOME/opt-qemu-vms && cd $HOME/opt-qemu-vms
 
 $ curl -L --fail -o ubu18-bionic-server-cloudimg-arm64.gcow2 https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.img
 $ curl -L --fail -o ubu18-bionic-server-cloudimg-arm64.manifest https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.manifest
