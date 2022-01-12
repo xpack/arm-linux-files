@@ -264,6 +264,8 @@ logout
 Ubuntu 18.04.3 LTS ubu18-arm64 ttyAMA0
 
 ubu18-arm64 login: 
+Password: 
+ubuntu@ubu18-arm64:~$
 ...
 ```
 
@@ -271,7 +273,7 @@ Subsequent restarts will be less verbose and do not start the
 cloud services.
 
 ```console
-$ sudo shutdown -P now
+ubuntu@ubu18-arm64:~$ sudo shutdown -P now
 ```
 
 With these options it is also possible to remotely login as 
